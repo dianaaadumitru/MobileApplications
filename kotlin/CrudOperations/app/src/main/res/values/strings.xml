@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Dog Shelter</string>
+    <string name="mainpage">Main Page</string>
+    <string name="title_activity_second_homescreen">Second Homescreen</string>
+    <string name="snailmovieo">Snailmovieopedia</string>
+    <string name="mucus">Mucus</string>
+    <string name="mainPageDescription">Now managing your dogs is simpler than ever. With a few clicks you can keep track of every little soul that pass through your shelter</string>
+    <string name="name">Name</string>
+    <string name="breed">Breed</string>
+    <string name="YearOfBirth">YearOfBirth</string>
+    <string name="arrivaldate">ArrivalDate</string>
+    <string name="medicaldetails">MedicalDetails</string>
+    <string name="crateno">CrateNumber</string>
+</resources>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/noteInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="38dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#0E0C0C"
+
+        app:layout_constraintBottom_toTopOf="@+id/editButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/noteLabel"
+        app:layout_constraintTop_toBottomOf="@+id/categoryInput" />
+
+    <TextView
+        android:id="@+id/noteLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp"
+        android:background="#B9CB53"
+
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text="Note"
+        android:textAlignment="center"
+        android:textColor="#0E0C0C"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editButton"
+        app:layout_constraintEnd_toStartOf="@+id/noteInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryLabel" />
+
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="#B9CB53"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+
+        android:text="Name"
+        android:textAlignment="center"
+        android:textColor="#0E0C0C"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/quantityLabel"
+        app:layout_constraintEnd_toStartOf="@+id/nameInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBanner" />
+
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+
+        android:layout_marginEnd="10dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#0E0C0C"
+        app:layout_constraintBottom_toTopOf="@+id/quantityInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/nameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/topBanner" />
+
+    <TextView
+        android:id="@+id/quantityLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:textColor="#0E0C0C"
+
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="10dp"
+        android:background="#219D1F"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text="Quantity"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/priceLabel"
+        app:layout_constraintEnd_toStartOf="@+id/quantityInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+
+    <EditText
+        android:id="@+id/quantityInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+
+        android:layout_marginEnd="10dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#0E0C0C"
+        app:layout_constraintBottom_toTopOf="@+id/priceInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/quantityLabel"
+        app:layout_constraintTop_toBottomOf="@+id/nameInput" />
+
+    <TextView
+        android:id="@+id/priceLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="10dp"
+        android:background="#B9CB53"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text="Price"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#0E0C0C"
+
+        app:layout_constraintBottom_toTopOf="@+id/categoryLabel"
+        app:layout_constraintEnd_toStartOf="@+id/priceInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quantityLabel" />
+
+    <EditText
+        android:id="@+id/priceInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+
+        android:layout_marginEnd="11dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#0E0C0C"
+        app:layout_constraintBottom_toTopOf="@+id/categoryInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/priceLabel"
+        app:layout_constraintTop_toBottomOf="@+id/quantityInput" />
+
+    <TextView
+        android:id="@+id/categoryLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="10dp"
+        android:background="#219D1F"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text="Category"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textColor="#0E0C0C"
+
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/noteLabel"
+        app:layout_constraintEnd_toStartOf="@+id/categoryInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priceLabel" />
+
+
+    <EditText
+        android:id="@+id/categoryInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="1dp"
+
+        android:layout_marginEnd="11dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#0E0C0C"
+        app:layout_constraintBottom_toTopOf="@+id/noteInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/categoryLabel"
+        app:layout_constraintTop_toBottomOf="@+id/priceInput" />
+
+
+    <ImageView
+        android:id="@+id/returnButton"
+        android:layout_width="199dp"
+        android:layout_height="73dp"
+        android:onClick="go_back"
+        android:textColor="#0E0C0C"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.998"
+        app:srcCompat="@drawable/returnbutton" />
+
+    <ImageView
+        android:id="@+id/editButton"
+        android:layout_width="187dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginEnd="80dp"
+        android:onClick="edit_item"
+        app:layout_constraintBottom_toBottomOf="@+id/returnButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.559"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.856"
+        app:srcCompat="@drawable/editbutton" />
+
+    <ImageView
+        android:id="@+id/topBanner"
+        android:layout_width="270dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/banneredit" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

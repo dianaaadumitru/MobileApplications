@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/noteInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.623" />
+
+    <TextView
+        android:id="@+id/noteLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="78dp"
+        android:background="#B9CB53"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text="Note"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/returnButton"
+        app:layout_constraintEnd_toStartOf="@+id/noteInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryLabel" />
+
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="10dp"
+        android:background="#B9CB53"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text="Name"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/quantityLabel"
+        app:layout_constraintEnd_toStartOf="@+id/nameInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBanner" />
+
+    <TextView
+        android:id="@+id/nameInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="70dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/quantityInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/nameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/topBanner" />
+
+    <TextView
+        android:id="@+id/quantityLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="10dp"
+        android:background="#219D1F"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text="Quantity"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/priceLabel"
+        app:layout_constraintEnd_toStartOf="@+id/quantityInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+
+    <TextView
+        android:id="@+id/quantityInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="11dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/priceInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/quantityLabel"
+        app:layout_constraintTop_toBottomOf="@+id/nameInput" />
+
+    <TextView
+        android:id="@+id/priceLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="10dp"
+        android:background="#B9CB53"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text="Price"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/categoryLabel"
+        app:layout_constraintEnd_toStartOf="@+id/priceInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quantityLabel" />
+
+    <TextView
+        android:id="@+id/priceInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="9dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/categoryInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/priceLabel"
+        app:layout_constraintTop_toBottomOf="@+id/quantityInput" />
+
+    <TextView
+        android:id="@+id/categoryLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="10dp"
+        android:background="#219D1F"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text="Category"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/noteLabel"
+        app:layout_constraintEnd_toStartOf="@+id/categoryInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priceLabel" />
+
+    <TextView
+        android:id="@+id/categoryInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginBottom="22dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/noteInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/categoryLabel"
+        app:layout_constraintTop_toBottomOf="@+id/priceInput" />
+
+
+    <ImageView
+        android:id="@+id/topBanner"
+        android:layout_width="332dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001"
+        app:srcCompat="@drawable/bannerdetail" />
+
+    <ImageView
+        android:id="@+id/returnButton"
+        android:layout_width="236dp"
+        android:layout_height="145dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="93dp"
+        android:onClick="go_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97"
+        app:srcCompat="@drawable/returnbutton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

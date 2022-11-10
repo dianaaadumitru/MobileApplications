@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D4D7F2"
+    tools:context=".ListViewActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="346dp"
+            tools:itemCount="7"
+            tools:listitem="@layout/list_item_view" />
+
+        <ImageView
+            android:id="@+id/addButton"
+            android:layout_width="130dp"
+            android:layout_height="89dp"
+            android:layout_marginStart="270dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginEnd="100dp"
+            android:baselineAligned="false"
+            android:onClick="goAddDog"
+            app:srcCompat="@drawable/addbutton"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
+</RelativeLayout>

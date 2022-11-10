@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D4D7F2">
+
+
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center_horizontal"
+        android:text="@string/name"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/breedLabel"
+        app:layout_constraintEnd_toStartOf="@+id/nameInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBanner"
+        app:layout_constraintVertical_bias="0.808" />
+
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="70dp"
+        android:autoText="false"
+        android:autofillHints=""
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/breedInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/nameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/topBanner"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/breedLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_horizontal"
+        android:text="@string/breed"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/yearOfBirthLabel"
+        app:layout_constraintEnd_toStartOf="@+id/breedInput"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/breedInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="20dp"
+        android:autoText="false"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/yearOfBirthInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/breedLabel"
+        app:layout_constraintTop_toBottomOf="@+id/nameLabel"
+        app:layout_constraintVertical_bias="0.0"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/yearOfBirthLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal"
+        android:text="@string/YearOfBirth"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/arrivalDateLabel"
+        app:layout_constraintEnd_toStartOf="@+id/yearOfBirthInput"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/yearOfBirthInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"
+        android:autoText="false"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/arrivaldateInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/yearOfBirthLabel"
+        app:layout_constraintTop_toBottomOf="@+id/breedLabel" />
+
+    <TextView
+        android:id="@+id/arrivalDateLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/arrivaldate"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/medicalDetailsLabel"
+        app:layout_constraintEnd_toStartOf="@+id/arrivaldateInput"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/arrivaldateInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"
+        android:autoText="false"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/crateNoInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/arrivalDateLabel"
+        app:layout_constraintTop_toBottomOf="@+id/yearOfBirthLabel"
+        app:layout_constraintVertical_bias="0.0"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/medicalDetailsLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center_horizontal"
+        android:text="@string/medicaldetails"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/crateNoLabel"
+        app:layout_constraintEnd_toStartOf="@+id/medicalDetailsInput"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/medicalDetailsInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"
+        android:autoText="false"
+        android:autofillHints=""
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/crateNoLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/arrivalDateLabel"
+        app:layout_constraintTop_toBottomOf="@+id/arrivalDateLabel"
+        app:layout_constraintVertical_bias="0.238"
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/crateNoLabel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:gravity="center_horizontal"
+        android:text="@string/crateno"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/crateNoInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBanner"
+        app:layout_constraintVertical_bias="0.563" />
+
+    <EditText
+        android:id="@+id/crateNoInput"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="29dp"
+        android:autoText="false"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/returnButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/crateNoLabel"
+        app:layout_constraintTop_toBottomOf="@+id/arrivalDateLabel"
+        app:layout_constraintVertical_bias="0.814" />
+
+    <ImageView
+        android:id="@+id/returnedButton"
+        android:layout_width="185dp"
+        android:layout_height="89dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginBottom="36dp"
+        android:onClick="go_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/backbutton" />
+
+    <ImageView
+        android:id="@+id/topBanner"
+        android:layout_width="446dp"
+        android:layout_height="81dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="727dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/adddogbanner" />
+
+    <ImageView
+        android:id="@+id/returnButton"
+        android:layout_width="181dp"
+        android:layout_height="99dp"
+        android:layout_marginBottom="116dp"
+        android:onClick="add_item"
+        app:layout_constraintBottom_toBottomOf="@+id/returnedButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/savedog" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
