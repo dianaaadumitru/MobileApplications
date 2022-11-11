@@ -13,8 +13,28 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="#888CAC"
-        android:padding="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/delete"
+                android:layout_width="40dp"
+                android:layout_height="38dp"
+                app:srcCompat="@drawable/deletebutton" />
+
+            <ImageView
+                android:id="@+id/edit"
+                app:srcCompat="@drawable/edit"
+                android:backgroundTint="@null"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/Name"
@@ -35,10 +55,10 @@
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
+            android:text="Breed"
             android:textColor="#0E0C0C"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:text="Breed" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/YearOfBirth"
@@ -47,10 +67,10 @@
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
+            android:text="YearOfBirth"
             android:textColor="#0E0C0C"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:text="YearOfBirth" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/ArrivalDate"
@@ -59,10 +79,10 @@
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
+            android:text="ArrivalDate"
             android:textColor="#0E0C0C"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:text="ArrivalDate" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/MedicalDetails"
@@ -71,10 +91,10 @@
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
+            android:text="MedicalDetails"
             android:textColor="#0E0C0C"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:text="MedicalDetails" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/CrateNumber"
@@ -83,28 +103,12 @@
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
+            android:text="CrateNumber"
             android:textColor="#0E0C0C"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:text="CrateNumber" />
+            android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:orientation="vertical">
 
-            <!--            <ImageView-->
-            <!--                android:id="@+id/trash"-->
-            <!--                android:layout_width="39dp"-->
-            <!--                android:layout_height="35dp"-->
-            <!--                 />-->
-
-            <!--            <ImageView-->
-            <!--                android:id="@+id/edit"-->
-            <!--                android:layout_width="40dp"-->
-            <!--                android:layout_height="35dp"-->
-            <!--                 />-->
-        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

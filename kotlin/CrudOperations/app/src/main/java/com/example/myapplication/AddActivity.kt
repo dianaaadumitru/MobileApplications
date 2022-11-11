@@ -7,63 +7,73 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class AddActivity: AppCompatActivity() {
+class AddActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_view_activity)
     }
 
-    fun add_item(view: View) {
+    fun addDog(view: View) {
         var correct = true
         val nameText = findViewById<EditText>(R.id.nameInput).text.toString()
-        val quantityText = findViewById<EditText>(R.id.quantityInput).text.toString()
-        val priceText = findViewById<EditText>(R.id.priceInput).text.toString()
-        val categoryText = findViewById<EditText>(R.id.categoryInput).text.toString()
-        val noteText = findViewById<EditText>(R.id.noteInput).text.toString()
+        val breedText = findViewById<EditText>(R.id.breedInput).text.toString()
+        var yearOfBirthText = findViewById<EditText>(R.id.yearOfBirthInput).text.toString()
+        val arrivalDateText = findViewById<EditText>(R.id.arrivaldateInput).text.toString()
+        var medicalDetailsText = findViewById<EditText>(R.id.medicalDetailsInput).text.toString()
+        val crateNumberText = findViewById<EditText>(R.id.crateNoInput).text.toString()
+
+        if (yearOfBirthText == "") {
+            yearOfBirthText = "0"
+        }
+        if (medicalDetailsText == "") {
+            medicalDetailsText = ""
+        }
 
         if (nameText == "") {
-            Toast.makeText(this,"You must add product name!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "You must add product name!", Toast.LENGTH_LONG).show()
             correct = false
         }
-        if (quantityText == "") {
-            Toast.makeText(this,"You must add quantity!", Toast.LENGTH_LONG).show()
+        if (breedText == "") {
+            Toast.makeText(this, "You must add a breed!", Toast.LENGTH_LONG).show()
             correct = false
         }
-        if (priceText == ""){
-            Toast.makeText(this,"You must add the price!", Toast.LENGTH_LONG).show()
+        if (arrivalDateText == "") {
+            Toast.makeText(this, "You must add the arrival date", Toast.LENGTH_LONG).show()
             correct = false
         }
-        if (categoryText == "") {
-            Toast.makeText(this,"You must add a category", Toast.LENGTH_LONG).show()
+        if (yearOfBirthText.toInt() < 0) {
+            Toast.makeText(this, "Year of birth must be positive number!", Toast.LENGTH_LONG).show()
             correct = false
         }
-        if (noteText == "") {
-            Toast.makeText(this,"You must add a note!", Toast.LENGTH_LONG).show()
+        if (crateNumberText == "") {
+            Toast.makeText(this, "You must add the crate number", Toast.LENGTH_LONG).show()
             correct = false
         }
-        if (priceText.toInt() < 0){
-            Toast.makeText(this,"Price must be positive number!", Toast.LENGTH_LONG).show()
-            correct = false
-        }
-        if (quantityText.toInt() < 0){
-            Toast.makeText(this,"Quantity must be positive number!", Toast.LENGTH_LONG).show()
+        if (crateNumberText.toInt() < 0) {
+            Toast.makeText(this, "Crate number must be positive number!", Toast.LENGTH_LONG).show()
             correct = false
         }
 
-
-        val item = Item(nameText, quantityText.toInt(), priceText.toInt() , categoryText, noteText)
+        val dog = Dog(
+            nameText,
+            breedText,
+            yearOfBirthText.toInt(),
+            arrivalDateText,
+            medicalDetailsText,
+            crateNumberText.toInt()
+        )
 
         if (correct) {
             val intent = Intent()
             val bundle = Bundle()
-            bundle.putParcelable("item", item)
-            intent.putExtra("itemBundle", bundle)
+            bundle.putParcelable("dog", dog)
+            intent.putExtra("dogBundle", bundle)
             setResult(RESULT_OK, intent)
             finish()
         }
     }
 
-    fun go_back(view: View) {
+    fun goBack(view: View) {
         intent = Intent()
         finish()
     }

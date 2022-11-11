@@ -5,5 +5,7 @@ import kotlinx.android.parcel.Parcelize
 import java.util.Date
 
 @Parcelize
-data class Dog(val name: String, val breed: String, val yearOfBirth: Number, val arrivalDate: Date,
-                val medicalDetails: String, val crateNo: Number) : Parcelable
+data class Dog(
+    val name: String, val breed: String, val yearOfBirth: Number, val arrivalDate: String,
+    val medicalDetails: String, val crateNo: Number
+) : Parcelable

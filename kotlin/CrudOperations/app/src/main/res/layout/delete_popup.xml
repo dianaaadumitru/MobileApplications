@@ -9,8 +9,8 @@
     <View
         android:id="@+id/rectangle_4"
         android:layout_width="339dp"
-        android:layout_height="208dp"
-        android:layout_alignParentLeft="true"
+        android:layout_height="350dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/rectangle"
         android:radius="15dp"
@@ -29,10 +29,9 @@
         android:background="@drawable/button_rectangle"
         app:layout_constraintBottom_toBottomOf="@+id/rectangle_4"
         app:layout_constraintEnd_toEndOf="@+id/rectangle_4"
-        app:layout_constraintHorizontal_bias="0.201"
         app:layout_constraintStart_toStartOf="@+id/rectangle_4"
         app:layout_constraintTop_toTopOf="@+id/rectangle_4"
-        app:layout_constraintVertical_bias="0.878" />
+        app:layout_constraintVertical_bias="0.73" />
 
     <View
         android:id="@+id/noButton"
@@ -43,20 +42,18 @@
         android:background="@drawable/button_rectangle"
         app:layout_constraintBottom_toBottomOf="@+id/rectangle_4"
         app:layout_constraintEnd_toEndOf="@+id/rectangle_4"
-        app:layout_constraintHorizontal_bias="0.794"
         app:layout_constraintStart_toStartOf="@+id/rectangle_4"
         app:layout_constraintTop_toTopOf="@+id/rectangle_4"
-        app:layout_constraintVertical_bias="0.878" />
+        app:layout_constraintVertical_bias="0.97" />
 
     <TextView
         android:id="@+id/yesLabel"
         android:layout_width="69dp"
         android:layout_height="23dp"
-        android:fontFamily="casual"
         android:gravity="center_horizontal"
         android:text="Yes"
         android:textAlignment="center"
-        android:textStyle="bold"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/yesButton"
         app:layout_constraintEnd_toEndOf="@+id/yesButton"
         app:layout_constraintStart_toStartOf="@+id/yesButton"
@@ -67,28 +64,26 @@
         android:id="@+id/noLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
         android:gravity="center_horizontal"
         android:text="No"
+        android:textColor="#000000"
         android:textAlignment="center"
-        android:textStyle="bold"
 
         app:layout_constraintBottom_toBottomOf="@+id/noButton"
         app:layout_constraintEnd_toEndOf="@+id/noButton"
         app:layout_constraintStart_toStartOf="@+id/noButton"
-        app:layout_constraintTop_toTopOf="@+id/noButton" />
+        app:layout_constraintTop_toTopOf="@+id/noButton"
+        app:layout_constraintVertical_bias="0.458" />
 
     <TextView
         android:id="@+id/headLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
+        android:layout_width="256dp"
+        android:layout_height="57dp"
         android:gravity="center_horizontal"
-        android:text="Are you sure you want to delete"
+        android:text="Are you sure this dog has been adopted?"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/rectangle_4"
         app:layout_constraintEnd_toEndOf="@+id/rectangle_4"
         app:layout_constraintHorizontal_bias="0.495"
@@ -100,12 +95,10 @@
         android:id="@+id/titleLabel"
         android:layout_width="301dp"
         android:layout_height="51dp"
-        android:fontFamily="casual"
         android:gravity="center_horizontal"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/rectangle_4"
         app:layout_constraintEnd_toEndOf="@+id/rectangle_4"
         app:layout_constraintStart_toStartOf="@+id/rectangle_4"

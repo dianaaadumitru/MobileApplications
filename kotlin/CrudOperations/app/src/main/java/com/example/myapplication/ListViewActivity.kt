@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.list_view_activity.*
 import java.util.*
 
-class ListViewActivity: AppCompatActivity() {
+class ListViewActivity : AppCompatActivity() {
     private val dogs = mutableListOf<Dog>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +26,7 @@ class ListViewActivity: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 3) {
             if (resultCode == RESULT_OK) {
-                val bundle = data?.getBundleExtra("itemBundle")
+                val bundle = data?.getBundleExtra("dogBundle")
                 val dog = bundle?.getParcelable<Dog>("dog")
                 if (dog != null) {
                     addDog(dog)
@@ -57,19 +57,24 @@ class ListViewActivity: AppCompatActivity() {
         dogs.add(dog)
     }
 
-    private fun editDog(dog: Dog, position: Int){
+    private fun editDog(dog: Dog, position: Int) {
         dogs[position] = dog;
     }
 
 
-    private fun initDogs(){
-        val dog1 = Dog("Max", "Pitt-Bull type", 2019, Date(2022-10-16),
-            "vaccines up to date", 2)
-        val dog2 = Dog("Bella", "Bichon type", 0, Date(2022-10-16),
+    private fun initDogs() {
+        val dog1 = Dog(
+            "Max", "Pitt-Bull type", 2019, "2022-10-16",
+            "vaccines up to date", 2
+        )
+        val dog2 = Dog(
+            "Bella", "Bichon type", 0, "2022-10-21",
             "", 1
         )
-        val dog3 = Dog("Frodo", "German Shepherd type", 2021, Date(2002-10-7),
-            "vaccines up to date; sensitive stomach", 2)
+        val dog3 = Dog(
+            "Frodo", "German Shepherd type", 2021, "2002-10-7",
+            "vaccines up to date; sensitive stomach", 2
+        )
 
         dogs.add(dog1)
         dogs.add(dog2)
