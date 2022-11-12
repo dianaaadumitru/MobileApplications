@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class RecyclerAdapter(private val items: MutableList<Dog>):
+class RecyclerAdapter(private val dogs: MutableList<Dog>):
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     private var context: Context? = null
     private final var intent: Intent? = null
@@ -37,12 +37,12 @@ class RecyclerAdapter(private val items: MutableList<Dog>):
         override fun onLongClick(view: View?): Boolean {
             // Handle long click
             // Return true to indicate the click was handled
-            val context = view?.context
-            val intent = Intent(context, DetailsActivity::class.java)
-            intent.putExtra("item", items[adapterPosition])
-            if (context != null) {
-                context.startActivity(intent)
-            }
+//            val context = view?.context
+//            val intent = Intent(context, DetailsActivity::class.java)
+//            intent.putExtra("item", dogs[adapterPosition])
+//            if (context != null) {
+//                context.startActivity(intent)
+//            }
             return true
         }
     }
@@ -53,17 +53,17 @@ class RecyclerAdapter(private val items: MutableList<Dog>):
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return dogs.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemName.text = items[position].name
-        holder.itemBreed.text = items[position].breed
-        holder.itemYearOfBirth.text = items[position].yearOfBirth.toString()
-        holder.itemArrivalDate.text = items[position].arrivalDate
-        holder.itemMedicalDetails.text = items[position].medicalDetails
-        holder.itemCrateNo.text = items[position].crateNo.toString()
+        holder.itemName.text = dogs[position].name
+        holder.itemBreed.text = dogs[position].breed
+        holder.itemYearOfBirth.text = dogs[position].yearOfBirth.toString()
+        holder.itemArrivalDate.text = dogs[position].arrivalDate
+        holder.itemMedicalDetails.text = dogs[position].medicalDetails
+        holder.itemCrateNo.text = dogs[position].crateNo.toString()
 
 
         holder.itemDelete.setOnClickListener{v: View ->
@@ -71,13 +71,13 @@ class RecyclerAdapter(private val items: MutableList<Dog>):
             dialog.setCancelable(true)
             dialog.setContentView(R.layout.delete_popup)
             val title = dialog.findViewById(R.id.titleLabel) as TextView
-            var str = items.get(position).name
+            var str = dogs.get(position).name
             str += "?"
             title.text = str
             val yesView = dialog.findViewById(R.id.yesButton) as View
             val noView = dialog.findViewById(R.id.noButton) as View
             yesView.setOnClickListener {
-                items.removeAt(position)
+                dogs.removeAt(position)
                 notifyDataSetChanged()
                 dialog.dismiss()
             }
@@ -91,7 +91,7 @@ class RecyclerAdapter(private val items: MutableList<Dog>):
             dialog.setCancelable(true)
             dialog.setContentView(R.layout.edit_popup)
             val title = dialog.findViewById(R.id.titleLabel) as TextView
-            var str = items.get(position).name
+            var str = dogs.get(position).name
             str += "?"
             title.text = str
             val yesView = dialog.findViewById(R.id.yesButton) as View
@@ -99,7 +99,7 @@ class RecyclerAdapter(private val items: MutableList<Dog>):
             yesView.setOnClickListener {
                 val context = v.context
                 val intent = Intent(context, EditActivity::class.java)
-                intent.putExtra("item", items[position])
+                intent.putExtra("dog", dogs[position])
                 intent.putExtra("position", position)
                 (context as Activity).startActivityForResult(intent, 5)
                 notifyDataSetChanged()
