@@ -2,6 +2,7 @@ import 'package:crud_operations/repository/Repository.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../domain/Dog.dart';
+import 'dart:developer';
 
 class DogService extends ChangeNotifier{
   late final Repository dogsRepository;
@@ -44,5 +45,9 @@ class DogService extends ChangeNotifier{
     Dog dog = Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
     dogsRepository.updateDog(id, dog);
     notifyListeners();
+  }
+
+  Dog returnDogById(int id) {
+    return dogsRepository.returnDogById(id);
   }
 }

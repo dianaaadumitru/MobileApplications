@@ -93,7 +93,7 @@ class DogAddPage extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Text("Add player"),
+                        Text("Add dog"),
                       ],
                     ),
                   ),
