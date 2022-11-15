@@ -26,9 +26,6 @@ class _HomePageState extends State<HomePage> {
       Widget yesButton = TextButton(
         child: const Text("Yes"),
         onPressed: () {
-          var dog = Provider.of<DogService>(context, listen: false).returnDogById(index);
-
-
           Provider.of<DogService>(context, listen: false).removeDog(index);
           Navigator.of(context)
               .push(MaterialPageRoute<void>(builder: (context) {
@@ -77,9 +74,6 @@ class _HomePageState extends State<HomePage> {
 
             return Card(
               shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  color: Colors.blue.shade300,
-                ),
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: ListTile(
@@ -114,16 +108,6 @@ class _HomePageState extends State<HomePage> {
                       const Spacer(),
                       Column(
                         children: [
-                          FloatingActionButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute<void>(builder: (context) {
-                                return const DogAddPage();
-                              }));
-                            },
-                            backgroundColor: Colors.blue,
-                            child: const Icon(Icons.edit),
-                          ),
                           FloatingActionButton(
                             onPressed: () {
                               var wasCancelled = showAreYouSureDialog(dog.id);

@@ -51,7 +51,7 @@ class DogAddPage extends StatelessWidget {
             children: [
               ListTile(
                   title: TextField(
-                      controller: dogName,
+                  controller: TextEditingController(text: "Complete the story from here..."),
                       decoration: const InputDecoration(
                         labelText: "Name",
                       ))),
