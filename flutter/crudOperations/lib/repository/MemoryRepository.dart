@@ -2,28 +2,28 @@ import 'package:crud_operations/repository/Repository.dart';
 
 import '../domain/Dog.dart';
 
-class MemoryRepository implements Repository{
+class MemoryRepository implements Repository {
   late final List<Dog> dogs = [];
 
   @override
-  void addDog(Dog newDog) {
+  Future<void> addDog(Dog newDog) async {
     dogs.add(newDog);
   }
 
   @override
-  void removeDog(int id) {
+  Future<void> removeDog(int id) async {
     Dog dog = dogs.where((element) => element.id == id).first;
     dogs.remove(dog);
   }
 
   @override
-  void updateDog(int id, Dog dog) {
+  Future<void> updateDog(int id, Dog dog) async {
     dogs[dogs.indexWhere((element) => element.id == id)] = dog;
     dog.id = id;
   }
 
   @override
-  Dog returnDogById(int id) {
+  Future<Dog> returnDogById(int id) async {
     Dog dog = Dog("", "", 0, "", "", 0);
     for (var element in dogs) {
       if (element.id == id) {
@@ -34,7 +34,7 @@ class MemoryRepository implements Repository{
   }
 
   @override
-  List<Dog> getAllDogs() {
+  Future<List<Dog>> getAllDogs() async {
     return dogs;
   }
 }

@@ -5,8 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'Repository.dart';
 
 class DatabaseRepository implements Repository {
-
-  static Database? _database;
+  final Database _database;
   static const String tableName = "Dogs";
 
   static const String idColumn = "_id";
@@ -17,40 +16,33 @@ class DatabaseRepository implements Repository {
   static const String medicalDetailsColumn = "medicalDetails";
   static const String crateNoColumn = "crateNo";
 
+  DatabaseRepository(this._database);
 
-
-  Future<Database> get database async {
-    if (_database != null) {
-      return _database!;
-    }
-
-    _database = await initDB("dog_shelter.db");
-    return _database!;
-  }
-
-  Future<Database> initDB(String filePath) async {
+  static Future<DatabaseRepository> initDB() async {
     final dbPath = await getDatabasesPath();
-    var path = join(dbPath, filePath);
+    var path = join(dbPath, "dog_shelter.db");
 
-    return await openDatabase(path, version: 1, onCreate: createDB);
+    // await deleteDatabase(path);
+
+    var database = await openDatabase(path, version: 1, onCreate: createDB);
+
+    return DatabaseRepository(database);
   }
 
-  Future createDB(Database database, int version) async {
+  static Future createDB(Database database, int version) async {
     await database.execute('''
-    CREATE TABLE  $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $nameColumn TEXT, '
-              '$breedColumn TEXT, $yearOfBirthColumn INTEGER, $arrivalDateColumn TEXT, 
+    CREATE TABLE  $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $nameColumn TEXT,
+              $breedColumn TEXT, $yearOfBirthColumn INTEGER, $arrivalDateColumn TEXT, 
               $medicalDetailsColumn TEXT, $crateNoColumn INTEGER)
     ''');
   }
 
   Future close() async {
-    // final db = await instance.database;
-    _database?.close();
+    _database.close();
   }
 
-
   @override
-  void addDog(Dog newDog) async{
+  Future<void> addDog(Dog newDog) async {
     Map<String, Object?> values = {
       nameColumn: newDog.name,
       breedColumn: newDog.breed,
@@ -59,29 +51,70 @@ class DatabaseRepository implements Repository {
       medicalDetailsColumn: newDog.medicalDetails,
       crateNoColumn: newDog.crateNumber
     };
-    await _database?.insert(tableName, values);
+    await _database.insert(tableName, values);
   }
 
   @override
-  List<Dog> getAllDogs() {
-    // TODO: implement getAllDogs
-    throw UnimplementedError();
+  Future<List<Dog>> getAllDogs() async {
+    final dogsFromDB = await _database.query(tableName);
+    List<Dog> allDogs = [];
+
+    for (var dogFromDB in dogsFromDB) {
+      Dog dog = Dog(
+          dogFromDB[nameColumn] as String,
+          dogFromDB[breedColumn] as String,
+          dogFromDB[yearOfBirthColumn] as int,
+          dogFromDB[arrivalDateColumn] as String,
+          dogFromDB[medicalDetailsColumn] as String,
+          dogFromDB[crateNoColumn] as int);
+
+      dog.id = dogFromDB[idColumn] as int;
+      allDogs.add(dog);
+    }
+    return allDogs;
   }
 
   @override
-  void removeDog(int id) {
-    // TODO: implement removeDog
+  Future<void> removeDog(int id) async {
+    await _database.delete(tableName, where: "$idColumn = ?", whereArgs: [id]);
   }
 
   @override
-  Dog returnDogById(int id) {
-    // TODO: implement returnDogById
-    throw UnimplementedError();
+  Future<Dog> returnDogById(int id) async {
+    final maps = _database.query(tableName,
+        columns: [
+          nameColumn,
+          breedColumn,
+          yearOfBirthColumn,
+          arrivalDateColumn,
+          medicalDetailsColumn,
+          crateNoColumn
+        ],
+        where: "$idColumn = ?",
+        whereArgs: [id]);
+
+    // Dog dog = Dog(maps![0][nameColumn] as String,
+    //     dogFromDB[breedColumn] as String,
+    //     dogFromDB[yearOfBirthColumn] as int,
+    //     dogFromDB[arrivalDateColumn] as String,
+    //     dogFromDB[medicalDetailsColumn] as String,
+    //     dogFromDB[crateNoColumn] as int);
+
+    return Dog("name", "breed", 0, "arrivalDate", "medicalDetails", 0);
   }
 
   @override
-  void updateDog(int id, Dog dog) {
-    // TODO: implement updateDog
-  }
+  Future<void> updateDog(int id, Dog newDog) async {
+    Map<String, Object?> values = {
+      nameColumn: newDog.name,
+      breedColumn: newDog.breed,
+      yearOfBirthColumn: newDog.yearOfBirth,
+      arrivalDateColumn: newDog.arrivalDate,
+      medicalDetailsColumn: newDog.medicalDetails,
+      crateNoColumn: newDog.crateNumber
+    };
 
+    await _database
+        .update(tableName, values, where: "$idColumn = ?", whereArgs: [id]);
+  }
 }

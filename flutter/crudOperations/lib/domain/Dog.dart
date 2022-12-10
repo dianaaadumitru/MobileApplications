@@ -9,9 +9,8 @@ class Dog {
   String medicalDetails;
   int crateNumber;
 
-  Dog(this.name, this.breed, this.yearOfBirth,
-      this.arrivalDate, this.medicalDetails, this.crateNumber) {
+  Dog(this.name, this.breed, this.yearOfBirth, this.arrivalDate,
+      this.medicalDetails, this.crateNumber) {
     id = currentId++;
   }
-
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../domain/Dog.dart';
 import '../service/DogService.dart';
 
 class DogDetails extends StatefulWidget {
-  final int index;
+  final Dog dog;
 
-  const DogDetails(this.index, {super.key});
+  const DogDetails(this.dog, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _DogDetailsState();
@@ -44,21 +45,20 @@ class _DogDetailsState extends State<DogDetails> {
 
   @override
   Widget build(BuildContext context) {
-    var dog = Provider.of<DogService>(context, listen: true)
-        .getAllDogs()[widget.index];
-
-    var dogName = TextEditingController(text: dog.name);
-    var dogBreed = TextEditingController(text: dog.breed);
+    var dogName = TextEditingController(text: widget.dog.name);
+    var dogBreed = TextEditingController(text: widget.dog.breed);
     var dogYearOfBirth =
-        TextEditingController(text: dog.yearOfBirth.toString());
-    var dogArrivalDate = TextEditingController(text: dog.arrivalDate);
-    var dogMedicalDetails = TextEditingController(text: dog.medicalDetails);
-    var dogCrateNo = TextEditingController(text: dog.crateNumber.toString());
+        TextEditingController(text: widget.dog.yearOfBirth.toString());
+    var dogArrivalDate = TextEditingController(text: widget.dog.arrivalDate);
+    var dogMedicalDetails =
+        TextEditingController(text: widget.dog.medicalDetails);
+    var dogCrateNo =
+        TextEditingController(text: widget.dog.crateNumber.toString());
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(dog.name),
+        title: Text(widget.dog.name),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -145,7 +145,7 @@ class _DogDetailsState extends State<DogDetails> {
                   }
 
                   Provider.of<DogService>(context, listen: false).updateDog(
-                      dog.id,
+                      widget.dog.id,
                       dogName.text,
                       dogBreed.text,
                       yearOfBirth!,

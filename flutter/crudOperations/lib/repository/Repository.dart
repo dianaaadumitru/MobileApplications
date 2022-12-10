@@ -1,13 +1,13 @@
 import '../domain/Dog.dart';
 
 abstract class Repository {
-  void addDog(Dog newDog);
+  Future<void> addDog(Dog newDog);
 
-  void removeDog(int id);
+  Future<void> removeDog(int id);
 
-  void updateDog(int id, Dog dog);
+  Future<void> updateDog(int id, Dog dog);
 
-  Dog returnDogById(int id);
+  Future<Dog> returnDogById(int id);
 
-  List<Dog> getAllDogs();
+  Future<List<Dog>> getAllDogs();
 }

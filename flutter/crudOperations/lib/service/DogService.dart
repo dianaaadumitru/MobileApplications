@@ -1,38 +1,41 @@
-import 'package:crud_operations/repository/MemoryRepository.dart';
+import 'package:crud_operations/repository/DatabaseRepository.dart';
 import 'package:crud_operations/repository/Repository.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../domain/Dog.dart';
-import 'dart:developer';
 
-class DogService extends ChangeNotifier{
-  late final Repository dogsRepository;
+class DogService extends ChangeNotifier {
+  final Repository dogsRepository;
 
-  DogService() {
-    dogsRepository = MemoryRepository();
-    populateList();
+  DogService(this.dogsRepository);
+
+  static Future<DogService> init() async {
+    var repository = await DatabaseRepository.initDB();
+    return DogService(repository);
   }
 
   void populateList() {
     List<Dog> dogs = [
-      Dog("Max", "Pitt-Bull type", 2019, "2022-10-16", "vaccines up to date", 2),
+      Dog("Max", "Pitt-Bull type", 2019, "2022-10-16", "vaccines up to date",
+          2),
       Dog("Bella", "Bichon type", 0, "2022-10-21", "", 1),
-      Dog("Frodo", "Shepherd type", 2021, "2002-10-7", "vaccines up to date; sensitive stomach", 2)
+      Dog("Frodo", "Shepherd type", 2021, "2002-10-7",
+          "vaccines up to date; sensitive stomach", 2),
+      Dog("Milo", "Shepherd type", 2021, "2002-10-7", "healthy", 2)
     ];
 
-    for (int i = 0; i < dogs.length; i ++) {
+    for (int i = 0; i < dogs.length; i++) {
       dogsRepository.addDog(dogs[i]);
     }
     notifyListeners();
   }
 
-   List<Dog> getAllDogs() {
-    return dogsRepository.getAllDogs();
+  Future<List<Dog>> getAllDogs() async => await dogsRepository.getAllDogs();
 
-  }
-
-  void addDog(String name, String breed, int yearOfBirth, String arrivalDate, String medicalDetails, int crateNumber) {
-    Dog newDog = Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
+  void addDog(String name, String breed, int yearOfBirth, String arrivalDate,
+      String medicalDetails, int crateNumber) {
+    Dog newDog =
+        Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
     dogsRepository.addDog(newDog);
     notifyListeners();
   }
@@ -42,13 +45,15 @@ class DogService extends ChangeNotifier{
     notifyListeners();
   }
 
-  void updateDog(int id, String name, String breed, int yearOfBirth, String arrivalDate, String medicalDetails, int crateNumber) {
-    Dog dog = Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
+  void updateDog(int id, String name, String breed, int yearOfBirth,
+      String arrivalDate, String medicalDetails, int crateNumber) {
+    Dog dog =
+        Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
     dogsRepository.updateDog(id, dog);
     notifyListeners();
   }
 
-  Dog returnDogById(int id) {
+  Future<Dog> returnDogById(int id) {
     return dogsRepository.returnDogById(id);
   }
 }
