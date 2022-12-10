@@ -13,4 +13,5 @@ class Dog {
       this.arrivalDate, this.medicalDetails, this.crateNumber) {
     id = currentId++;
   }
+
 }

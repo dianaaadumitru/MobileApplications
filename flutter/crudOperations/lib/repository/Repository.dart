@@ -1,33 +1,13 @@
 import '../domain/Dog.dart';
 
-class Repository {
-  late final List<Dog> dogs;
+abstract class Repository {
+  void addDog(Dog newDog);
 
-  Repository() {
-    dogs = [];
-  }
+  void removeDog(int id);
 
-  void addDog(Dog newDog) {
-    dogs.add(newDog);
-  }
+  void updateDog(int id, Dog dog);
 
-  void removeDog(int id) {
-    Dog dog = dogs.where((element) => element.id == id).first;
-    dogs.remove(dog);
-  }
+  Dog returnDogById(int id);
 
-  void updateDog(int id, Dog dog) {
-    dogs[dogs.indexWhere((element) => element.id == id)] = dog;
-    dog.id = id;
-  }
-
-  Dog returnDogById(int id) {
-    Dog dog = Dog("", "", 0, "", "", 0);
-    for (var element in dogs) {
-        if (element.id == id) {
-          return element;
-        }
-    }
-    return dog;
-  }
+  List<Dog> getAllDogs();
 }

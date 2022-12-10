@@ -1,3 +1,4 @@
+import 'package:crud_operations/repository/MemoryRepository.dart';
 import 'package:crud_operations/repository/Repository.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -8,7 +9,7 @@ class DogService extends ChangeNotifier{
   late final Repository dogsRepository;
 
   DogService() {
-    dogsRepository = Repository();
+    dogsRepository = MemoryRepository();
     populateList();
   }
 
@@ -26,7 +27,7 @@ class DogService extends ChangeNotifier{
   }
 
    List<Dog> getAllDogs() {
-    return dogsRepository.dogs;
+    return dogsRepository.getAllDogs();
 
   }
 
