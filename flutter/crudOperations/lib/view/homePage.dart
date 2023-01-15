@@ -58,8 +58,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildListView() {
-    var dogsFuture =
-        Provider.of<DogService>(context, listen: true).getAllDogs();
+    var dogsFuture = Provider.of<DogService>(context, listen: true).getAllDogs();
 
     return FutureBuilder<List<Dog>>(
         future: dogsFuture,
@@ -70,63 +69,37 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 var dog = dogs?[index];
                 if (dog == null) {
-                  return const Card();
+                  // return const Card();
+                  return const ListTile();
                 }
 
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                return ListTile(
+                  leading: CircleAvatar(
+                    child: Text('${index + 1}'),
                   ),
-                  child: ListTile(
-                      title: Row(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                dog.name,
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 19.0,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              Text(
-                                ", " + dog.breed,
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 19.0,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              Text(
-                                ", " + dog.arrivalDate,
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 19.0,
-                                    fontWeight: FontWeight.normal),
-                              )
-                            ],
-                          ),
-                          const Spacer(),
-                          Column(
-                            children: [
-                              FloatingActionButton(
-                                onPressed: () {
-                                  var wasCancelled =
-                                      showAreYouSureDialog(dog.id);
-                                },
-                                backgroundColor: Colors.blue,
-                                child: const Icon(Icons.delete),
-                              ),
-                            ],
-                          ),
-                        ],
+                  title: Text(
+                    dog.name,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 19.0,
+                        fontWeight: FontWeight.normal),
+
+                  ),
+                  subtitle: Text(
+                    "${dog.breed}, ${dog.arrivalDate}",
+                  ),
+                  trailing:  Column(
+                    children: [
+                      FloatingActionButton(
+                        onPressed: () {
+                          var wasCancelled =
+                          showAreYouSureDialog(dog.id);
+                        },
+                        backgroundColor: Colors.blue,
+                        child: const Icon(Icons.delete),
                       ),
-                      onTap: () => {
-                            Navigator.of(context).push(
-                                MaterialPageRoute<void>(builder: (context) {
-                              return DogDetails(dog);
-                            }))
-                          }),
+                    ],
+                  ),
                 );
               });
         });

@@ -19,9 +19,11 @@ class DatabaseRepository implements Repository {
   DatabaseRepository(this._database);
 
   static Future<DatabaseRepository> initDB() async {
+    // Get a location using getDatabasesPath
     final dbPath = await getDatabasesPath();
     var path = join(dbPath, "dog_shelter.db");
 
+    // Delete the database
     // await deleteDatabase(path);
 
     var database = await openDatabase(path, version: 1, onCreate: createDB);
@@ -30,6 +32,7 @@ class DatabaseRepository implements Repository {
   }
 
   static Future createDB(Database database, int version) async {
+    // When creating the db, create the table
     await database.execute('''
     CREATE TABLE  $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $nameColumn TEXT,
               $breedColumn TEXT, $yearOfBirthColumn INTEGER, $arrivalDateColumn TEXT, 
@@ -51,11 +54,13 @@ class DatabaseRepository implements Repository {
       medicalDetailsColumn: newDog.medicalDetails,
       crateNoColumn: newDog.crateNumber
     };
+    // Insert some records
     await _database.insert(tableName, values);
   }
 
   @override
   Future<List<Dog>> getAllDogs() async {
+    // Get the records
     final dogsFromDB = await _database.query(tableName);
     List<Dog> allDogs = [];
 
@@ -76,6 +81,7 @@ class DatabaseRepository implements Repository {
 
   @override
   Future<void> removeDog(int id) async {
+    // Delete a record
     await _database.delete(tableName, where: "$idColumn = ?", whereArgs: [id]);
   }
 
