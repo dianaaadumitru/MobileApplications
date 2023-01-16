@@ -2,6 +2,8 @@ import 'package:crud_operations/service/DogService.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'homePage.dart';
+
 class DogAddPage extends StatelessWidget {
   const DogAddPage({Key? key}) : super(key: key);
 
@@ -138,7 +140,10 @@ class DogAddPage extends StatelessWidget {
                         medicalDetails,
                         int.tryParse(dogCrateNo.text)!);
 
-                    Navigator.pop(context);
+                    Navigator.of(context)
+                        .push(MaterialPageRoute<void>(builder: (context) {
+                      return const HomePage();
+                    }));
                   },
                 ),
               ),

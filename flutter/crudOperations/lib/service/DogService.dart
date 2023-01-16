@@ -38,8 +38,7 @@ class DogService extends ChangeNotifier {
 
   void addDog(String name, String breed, int yearOfBirth, String arrivalDate,
       String medicalDetails, int crateNumber) {
-    Dog newDog =
-        Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
+    Dog newDog = Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
     dogsRepository.addDog(newDog);
     notifyListeners();
   }

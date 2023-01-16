@@ -28,7 +28,7 @@ class ServerRepository {
 
   ServerRepository(this._database, this.dogs, this._isOnline) {
     dogsLocal = [];
-    syncDatabases();
+
   }
 
   static Future<ServerRepository> initDB() async {
@@ -85,10 +85,12 @@ class ServerRepository {
     } on TimeoutException {
       _isOnline = false;
       dogsLocal.add(newDog);
+      log("dogs local: $dogsLocal");
       return addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth, newDog.arrivalDate, newDog.medicalDetails, newDog.crateNumber);
     } on Error {
       _isOnline = false;
       dogsLocal.add(newDog);
+      log("dogs local: $dogsLocal");
       return addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth, newDog.arrivalDate, newDog.medicalDetails, newDog.crateNumber);
     }
   }
@@ -109,7 +111,7 @@ class ServerRepository {
         var dogsJson = res as List;
         dogs = dogsJson.map((dogJson) => Dog.fromJson(dogJson)).toList();
         log("log: retrieved dogs from server: ${dogs.length}");
-
+        syncDatabases();
         return dogs;
       } else {
         return getAllDogsLocally();
@@ -225,15 +227,14 @@ class ServerRepository {
   }
 
   Future<void> checkOnline() async {
-    log("started...");
     try {
       var response = await http.get(Uri.parse("http://$ipAddress:8080/dogs/isOnline"))
           .timeout(const Duration(seconds: 1));
 
       if (response.statusCode == 200) {
         if (_isOnline == false) {
-          await syncDatabases();
           _isOnline = true;
+          syncDatabases2();
         }
       }
     } on TimeoutException {
@@ -244,14 +245,6 @@ class ServerRepository {
   }
 
   Future<void> syncDatabases() async {
-    log("dogs added locally: ${dogsLocal.isNotEmpty}");
-    if (dogsLocal.isNotEmpty) {
-      log("here");
-      for (var dog in dogsLocal) {
-        addDog(dog);
-      }
-    }
-
     log("dogs:");
     log("dogs: $dogs");
 
@@ -259,6 +252,14 @@ class ServerRepository {
 
     for (var dog in dogs) {
       await _database.insert(tableName, dog.toMapWithId());
+    }
+  }
+
+  Future<void> syncDatabases2() async {
+    if (dogsLocal.isNotEmpty) {
+      for (var dog in dogsLocal) {
+        addDog(dog);
+      }
     }
   }
 }
