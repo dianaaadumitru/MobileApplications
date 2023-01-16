@@ -1,5 +1,3 @@
-import 'package:crud_operations/repository/DatabaseRepository.dart';
-import 'package:crud_operations/repository/Repository.dart';
 import 'package:crud_operations/repository/ServerRepository.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -38,7 +36,8 @@ class DogService extends ChangeNotifier {
 
   void addDog(String name, String breed, int yearOfBirth, String arrivalDate,
       String medicalDetails, int crateNumber) {
-    Dog newDog = Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
+    Dog newDog =
+        Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
     dogsRepository.addDog(newDog);
     notifyListeners();
   }

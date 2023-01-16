@@ -21,7 +21,8 @@ class _HomePageState extends State<HomePage> {
     Widget yesButton = TextButton(
       child: const Text("Yes"),
       onPressed: () {
-        var result = Provider.of<DogService>(context, listen: false).removeDog(index);
+        var result =
+            Provider.of<DogService>(context, listen: false).removeDog(index);
         result.then((value) => {
               if (value == "SUCCESS")
                 {
@@ -29,27 +30,30 @@ class _HomePageState extends State<HomePage> {
                       .push(MaterialPageRoute<void>(builder: (context) {
                     return const HomePage();
                   }))
-                } else {
-                showDialog(context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("Error"),
-                        content: const Text("You are offline or there is a problem, please try again later."),
-                        actions: [
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .push(MaterialPageRoute<void>(builder: (context) {
-                                  return const HomePage();
-                                }));
-                              },
-                              child: const Text("OK")
-                          )
-                        ],
-                      );
-                    }
-                )
-              }
+                }
+              else
+                {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Error"),
+                          content: const Text(
+                              "You are offline or there is a problem, please try again later."),
+                          actions: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute<void>(
+                                          builder: (context) {
+                                    return const HomePage();
+                                  }));
+                                },
+                                child: const Text("OK"))
+                          ],
+                        );
+                      })
+                }
             });
       },
     );
@@ -84,7 +88,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildListView() {
-    var dogsFuture = Provider.of<DogService>(context, listen: true).getAllDogs();
+    var dogsFuture =
+        Provider.of<DogService>(context, listen: true).getAllDogs();
 
     return FutureBuilder<List<Dog>>(
         future: dogsFuture,

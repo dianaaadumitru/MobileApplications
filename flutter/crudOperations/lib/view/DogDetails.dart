@@ -145,44 +145,48 @@ class _DogDetailsState extends State<DogDetails> {
                     return;
                   }
 
-                  var result = Provider.of<DogService>(context, listen: false).updateDog(
-                      widget.dog.id,
-                      dogName.text,
-                      dogBreed.text,
-                      yearOfBirth!,
-                      dogArrivalDate.text,
-                      medicalDetails,
-                      int.tryParse(dogCrateNo.text)!);
+                  var result = Provider.of<DogService>(context, listen: false)
+                      .updateDog(
+                          widget.dog.id,
+                          dogName.text,
+                          dogBreed.text,
+                          yearOfBirth!,
+                          dogArrivalDate.text,
+                          medicalDetails,
+                          int.tryParse(dogCrateNo.text)!);
 
                   result.then((value) => {
-                    if (value == "SUCCESS") {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute<void>(builder: (context) {
-                        return const HomePage();
-                      }))
-                    } else {
-                      showDialog(context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text("Error"),
-                              content: const Text("You are offline or there is a problem, please try again later."),
-                              actions: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute<void>(builder: (context) {
-                                        return const HomePage();
-                                      }));
-                                    },
-                                    child: const Text("OK")
-                                )
-                              ],
-                            );
+                        if (value == "SUCCESS")
+                          {
+                            Navigator.of(context).push(
+                                MaterialPageRoute<void>(builder: (context) {
+                              return const HomePage();
+                            }))
                           }
-                      )
-                    }
-                  });
-
+                        else
+                          {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text("Error"),
+                                    content: const Text(
+                                        "You are offline or there is a problem, please try again later."),
+                                    actions: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute<void>(
+                                                    builder: (context) {
+                                              return const HomePage();
+                                            }));
+                                          },
+                                          child: const Text("OK"))
+                                    ],
+                                  );
+                                })
+                          }
+                      });
                 },
               ),
             ),

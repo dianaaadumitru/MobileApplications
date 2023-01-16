@@ -3,8 +3,8 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:http/http.dart' as http;
 import 'package:crud_operations/domain/Dog.dart';
+import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -28,7 +28,6 @@ class ServerRepository {
 
   ServerRepository(this._database, this.dogs, this._isOnline) {
     dogsLocal = [];
-
   }
 
   static Future<ServerRepository> initDB() async {
@@ -66,17 +65,17 @@ class ServerRepository {
 
       var response = await http
           .post(Uri.parse("http://$ipAddress:8080/dogs"),
-          headers: headers,
-          body: jsonEncode({
-            'id': newDog.id,
-            'name': newDog.name,
-            'breed': newDog.breed,
-            'yearOfBirth': newDog.yearOfBirth,
-            'arrivalDate': newDog.arrivalDate,
-            'medicalDetails': newDog.medicalDetails,
-            'crateNumber': newDog.crateNumber
-          }),
-          encoding: Encoding.getByName('utf-8'))
+              headers: headers,
+              body: jsonEncode({
+                'id': newDog.id,
+                'name': newDog.name,
+                'breed': newDog.breed,
+                'yearOfBirth': newDog.yearOfBirth,
+                'arrivalDate': newDog.arrivalDate,
+                'medicalDetails': newDog.medicalDetails,
+                'crateNumber': newDog.crateNumber
+              }),
+              encoding: Encoding.getByName('utf-8'))
           .timeout(const Duration(seconds: 1));
 
       if (response.statusCode == 200) {
@@ -85,26 +84,26 @@ class ServerRepository {
     } on TimeoutException {
       _isOnline = false;
       dogsLocal.add(newDog);
-      log("dogs local: $dogsLocal");
-      return addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth, newDog.arrivalDate, newDog.medicalDetails, newDog.crateNumber);
+      return addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth,
+          newDog.arrivalDate, newDog.medicalDetails, newDog.crateNumber);
     } on Error {
       _isOnline = false;
       dogsLocal.add(newDog);
-      log("dogs local: $dogsLocal");
-      return addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth, newDog.arrivalDate, newDog.medicalDetails, newDog.crateNumber);
+      return addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth,
+          newDog.arrivalDate, newDog.medicalDetails, newDog.crateNumber);
     }
   }
 
   Future<List<Dog>> getAllDogs() async {
     await checkOnline();
-    log('log: is online? $_isOnline');
 
-    if (! _isOnline) {
+    if (!_isOnline) {
       return getAllDogsLocally();
     }
 
     try {
-      var response = await http.get(Uri.parse("http://$ipAddress:8080/dogs"))
+      var response = await http
+          .get(Uri.parse("http://$ipAddress:8080/dogs"))
           .timeout(const Duration(seconds: 1));
       if (response.statusCode == 200) {
         var res = json.decode(response.body);
@@ -128,7 +127,8 @@ class ServerRepository {
   Future<String> removeDog(int id) async {
     await checkOnline();
     try {
-      var response = await http.delete(Uri.parse("http://$ipAddress:8080/dogs/$id"))
+      var response = await http
+          .delete(Uri.parse("http://$ipAddress:8080/dogs/$id"))
           .timeout(const Duration(seconds: 1));
 
       if (response.statusCode == 200) {
@@ -155,17 +155,17 @@ class ServerRepository {
 
       var response = await http
           .put(Uri.parse("http://$ipAddress:8080/dogs/$id"),
-          headers: headers,
-          body: jsonEncode({
-            'id': id,
-            'name': dog.name,
-            'breed': dog.breed,
-            'yearOfBirth': dog.yearOfBirth,
-            'arrivalDate': dog.arrivalDate,
-            'medicalDetails': dog.medicalDetails,
-            'crateNumber': dog.crateNumber
-          }),
-          encoding: Encoding.getByName('utf-8'))
+              headers: headers,
+              body: jsonEncode({
+                'id': id,
+                'name': dog.name,
+                'breed': dog.breed,
+                'yearOfBirth': dog.yearOfBirth,
+                'arrivalDate': dog.arrivalDate,
+                'medicalDetails': dog.medicalDetails,
+                'crateNumber': dog.crateNumber
+              }),
+              encoding: Encoding.getByName('utf-8'))
           .timeout(const Duration(seconds: 1));
 
       if (response.statusCode == 200) {
@@ -205,12 +205,13 @@ class ServerRepository {
     return dogs;
   }
 
-  Future<void> addDogLocally(String name, String breed, int yearOfBirth, String arrivalDate, String medicalDetails, int crateNumber) async {
-    Dog dog = Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
+  Future<void> addDogLocally(String name, String breed, int yearOfBirth,
+      String arrivalDate, String medicalDetails, int crateNumber) async {
+    Dog dog =
+        Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
     // Insert some records
     await _database.insert(tableName, dog.toMap());
     log('log: Added dog locally ${dog.name}');
-
   }
 
   Future<void> removeDogLocally(int id) async {
@@ -219,16 +220,26 @@ class ServerRepository {
     log('log: Removed dog locally with id $id');
   }
 
-  Future<void> updateDogLocally(int id, String name, String breed, int yearOfBirth, String arrivalDate, String medicalDetails, int crateNumber) async {
-    Dog newDog = Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
+  Future<void> updateDogLocally(
+      int id,
+      String name,
+      String breed,
+      int yearOfBirth,
+      String arrivalDate,
+      String medicalDetails,
+      int crateNumber) async {
+    Dog newDog =
+        Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
 
-    await _database.update(tableName, newDog.toMap(), where: "$idColumn = ?", whereArgs: [id]);
+    await _database.update(tableName, newDog.toMap(),
+        where: "$idColumn = ?", whereArgs: [id]);
     log('log: Updated dog locally ${newDog.name}');
   }
 
   Future<void> checkOnline() async {
     try {
-      var response = await http.get(Uri.parse("http://$ipAddress:8080/dogs/isOnline"))
+      var response = await http
+          .get(Uri.parse("http://$ipAddress:8080/dogs/isOnline"))
           .timeout(const Duration(seconds: 1));
 
       if (response.statusCode == 200) {
@@ -245,9 +256,6 @@ class ServerRepository {
   }
 
   Future<void> syncDatabases() async {
-    log("dogs:");
-    log("dogs: $dogs");
-
     await _database.execute("DELETE FROM $tableName");
 
     for (var dog in dogs) {

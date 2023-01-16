@@ -38,7 +38,8 @@ class Dog {
   }
 
   factory Dog.fromJson(dynamic json) {
-    var dog = Dog(json['name'], json['breed'], json['yearOfBirth'], json['arrivalDate'], json['medicalDetails'], json['crateNumber']);
+    var dog = Dog(json['name'], json['breed'], json['yearOfBirth'],
+        json['arrivalDate'], json['medicalDetails'], json['crateNumber']);
 
     dog.id = json['id'];
 
