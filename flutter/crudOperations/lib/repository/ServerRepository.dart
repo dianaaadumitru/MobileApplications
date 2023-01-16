@@ -14,6 +14,7 @@ class ServerRepository {
 
   List<Dog> dogs;
   late List<Dog> dogsLocal;
+  bool _isOnline;
 
   static const String ipAddress = '192.168.1.4';
 
@@ -25,8 +26,9 @@ class ServerRepository {
   static const String medicalDetailsColumn = "medicalDetails";
   static const String crateNoColumn = "crateNumber";
 
-  ServerRepository(this._database, this.dogs) {
+  ServerRepository(this._database, this.dogs, this._isOnline) {
     dogsLocal = [];
+    syncDatabases();
   }
 
   static Future<ServerRepository> initDB() async {
@@ -39,7 +41,7 @@ class ServerRepository {
 
     var database = await openDatabase(path, version: 1, onCreate: createDB);
 
-    return ServerRepository(database, []);
+    return ServerRepository(database, [], false);
   }
 
   static Future createDB(Database database, int version) async {
@@ -56,6 +58,7 @@ class ServerRepository {
   }
 
   Future<void> addDog(Dog newDog) async {
+    await checkOnline();
     try {
       Map<String, String> headers = HashMap();
       headers['Accept'] = 'application/json';
@@ -80,15 +83,24 @@ class ServerRepository {
         log('log: Added dog ${newDog.name}');
       }
     } on TimeoutException {
+      _isOnline = false;
       dogsLocal.add(newDog);
       return addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth, newDog.arrivalDate, newDog.medicalDetails, newDog.crateNumber);
     } on Error {
+      _isOnline = false;
       dogsLocal.add(newDog);
       return addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth, newDog.arrivalDate, newDog.medicalDetails, newDog.crateNumber);
     }
   }
 
   Future<List<Dog>> getAllDogs() async {
+    await checkOnline();
+    log('log: is online? $_isOnline');
+
+    if (! _isOnline) {
+      return getAllDogsLocally();
+    }
+
     try {
       var response = await http.get(Uri.parse("http://$ipAddress:8080/dogs"))
           .timeout(const Duration(seconds: 1));
@@ -103,13 +115,16 @@ class ServerRepository {
         return getAllDogsLocally();
       }
     } on TimeoutException {
+      _isOnline = false;
       return getAllDogsLocally();
     } on Error {
+      _isOnline = false;
       return getAllDogsLocally();
     }
   }
 
   Future<String> removeDog(int id) async {
+    await checkOnline();
     try {
       var response = await http.delete(Uri.parse("http://$ipAddress:8080/dogs/$id"))
           .timeout(const Duration(seconds: 1));
@@ -121,13 +136,16 @@ class ServerRepository {
         return "ERROR";
       }
     } on TimeoutException {
+      _isOnline = false;
       return "OFFLINE";
     } on Error {
+      _isOnline = false;
       return "OFFLINE";
     }
   }
 
   Future<String> updateDog(int id, Dog dog) async {
+    await checkOnline();
     try {
       Map<String, String> headers = HashMap();
       headers['Accept'] = 'application/json';
@@ -155,8 +173,10 @@ class ServerRepository {
         return "ERROR";
       }
     } on TimeoutException {
+      _isOnline = false;
       return "OFFLINE";
     } on Error {
+      _isOnline = false;
       return "OFFLINE";
     }
   }
@@ -204,5 +224,41 @@ class ServerRepository {
     log('log: Updated dog locally ${newDog.name}');
   }
 
+  Future<void> checkOnline() async {
+    log("started...");
+    try {
+      var response = await http.get(Uri.parse("http://$ipAddress:8080/dogs/isOnline"))
+          .timeout(const Duration(seconds: 1));
 
+      if (response.statusCode == 200) {
+        if (_isOnline == false) {
+          await syncDatabases();
+          _isOnline = true;
+        }
+      }
+    } on TimeoutException {
+      _isOnline = false;
+    } on Error {
+      _isOnline = false;
+    }
+  }
+
+  Future<void> syncDatabases() async {
+    log("dogs added locally: ${dogsLocal.isNotEmpty}");
+    if (dogsLocal.isNotEmpty) {
+      log("here");
+      for (var dog in dogsLocal) {
+        addDog(dog);
+      }
+    }
+
+    log("dogs:");
+    log("dogs: $dogs");
+
+    await _database.execute("DELETE FROM $tableName");
+
+    for (var dog in dogs) {
+      await _database.insert(tableName, dog.toMapWithId());
+    }
+  }
 }

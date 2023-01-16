@@ -21,8 +21,7 @@ class _HomePageState extends State<HomePage> {
     Widget yesButton = TextButton(
       child: const Text("Yes"),
       onPressed: () {
-        var result =
-            Provider.of<DogService>(context, listen: false).removeDog(index);
+        var result = Provider.of<DogService>(context, listen: false).removeDog(index);
         result.then((value) => {
               if (value == "SUCCESS")
                 {

@@ -156,7 +156,10 @@ class _DogDetailsState extends State<DogDetails> {
 
                   result.then((value) => {
                     if (value == "SUCCESS") {
-                      Navigator.pop(context)
+                      Navigator.of(context)
+                          .push(MaterialPageRoute<void>(builder: (context) {
+                        return const HomePage();
+                      }))
                     } else {
                       showDialog(context: context,
                           builder: (BuildContext context) {
