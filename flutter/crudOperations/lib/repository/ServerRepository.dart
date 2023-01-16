@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -63,7 +64,10 @@ class ServerRepository {
   Future<List<Dog>> getAllDogs() async {
     await checkOnline();
     log('log: is online? $_isOnline');
-    // return getAllDogsLocally();
+
+    if (! _isOnline) {
+      return getAllDogsLocally();
+    }
 
     try {
       var response = await http.get(Uri.parse("http://$ipAddress:8080/dogs"))
@@ -87,14 +91,63 @@ class ServerRepository {
     }
   }
 
-  Future<void> removeDog(int id) async {
-    removeDogLocally(id);
-    log('log: Removed dog with id $id');
+  Future<String> removeDog(int id) async {
+    await checkOnline();
+    try {
+      var response = await http.delete(Uri.parse("http://$ipAddress:8080/dogs/$id"))
+          .timeout(const Duration(seconds: 1));
+
+      log("response code: ${response.statusCode} ");
+      if (response.statusCode == 200) {
+        log('log: Removed dog with id $id');
+        return "SUCCESS";
+      } else {
+        return "ERROR";
+      }
+    } on TimeoutException {
+      _isOnline = false;
+      return "OFFLINE";
+    } on Error {
+      _isOnline = false;
+      return "OFFLINE";
+    }
   }
 
-  Future<void> updateDog(int id, Dog dog) async {
-    updateDogLocally(id, dog.name, dog.breed, dog.yearOfBirth, dog.arrivalDate, dog.medicalDetails, dog.crateNumber);
-    log('log: Updated dog ${dog.name}');
+  Future<String> updateDog(int id, Dog dog) async {
+    await checkOnline();
+    try {
+      Map<String, String> headers = HashMap();
+      headers['Accept'] = 'application/json';
+      headers['Content-type'] = 'application/json';
+
+      var response = await http
+          .put(Uri.parse("http://$ipAddress:8080/dogs/$id"),
+          headers: headers,
+          body: jsonEncode({
+            'id': id,
+            'name': dog.name,
+            'breed': dog.breed,
+            'yearOfBirth': dog.yearOfBirth,
+            'arrivalDate': dog.arrivalDate,
+            'medicalDetails': dog.medicalDetails,
+            'crateNumber': dog.crateNumber
+          }),
+          encoding: Encoding.getByName('utf-8'))
+          .timeout(const Duration(seconds: 1));
+
+      if (response.statusCode == 200) {
+        log('log: Updated dog ${dog.name}');
+        return "SUCCESS";
+      } else {
+        return "ERROR";
+      }
+    } on TimeoutException {
+      _isOnline = false;
+      return "OFFLINE";
+    } on Error {
+      _isOnline = false;
+      return "OFFLINE";
+    }
   }
 
   Future<List<Dog>> getAllDogsLocally() async {

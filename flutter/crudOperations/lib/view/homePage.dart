@@ -21,10 +21,37 @@ class _HomePageState extends State<HomePage> {
     Widget yesButton = TextButton(
       child: const Text("Yes"),
       onPressed: () {
-        Provider.of<DogService>(context, listen: false).removeDog(index);
-        Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) {
-          return const HomePage();
-        }));
+        var result =
+            Provider.of<DogService>(context, listen: false).removeDog(index);
+        result.then((value) => {
+              if (value == "SUCCESS")
+                {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute<void>(builder: (context) {
+                    return const HomePage();
+                  }))
+                } else {
+                showDialog(context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Error"),
+                        content: const Text("You are offline or there is a problem, please try again later."),
+                        actions: [
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute<void>(builder: (context) {
+                                  return const HomePage();
+                                }));
+                              },
+                              child: const Text("OK")
+                          )
+                        ],
+                      );
+                    }
+                )
+              }
+            });
       },
     );
 

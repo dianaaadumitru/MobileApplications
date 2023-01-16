@@ -1,16 +1,20 @@
 import 'package:crud_operations/repository/DatabaseRepository.dart';
 import 'package:crud_operations/repository/Repository.dart';
+import 'package:crud_operations/repository/ServerRepository.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../domain/Dog.dart';
 
 class DogService extends ChangeNotifier {
-  final Repository dogsRepository;
+  // final Repository dogsRepository;
+  final ServerRepository dogsRepository;
 
   DogService(this.dogsRepository);
 
   static Future<DogService> init() async {
-    var repository = await DatabaseRepository.initDB();
+    // var repository = await DatabaseRepository.initDB();
+    var repository = await ServerRepository.initDB();
+    // await repository.getAllDogs();
     return DogService(repository);
   }
 
@@ -40,20 +44,18 @@ class DogService extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeDog(int id) {
-    dogsRepository.removeDog(id);
+  Future<String> removeDog(int id) {
+    var result = dogsRepository.removeDog(id);
     notifyListeners();
+    return result;
   }
 
-  void updateDog(int id, String name, String breed, int yearOfBirth,
+  Future<String> updateDog(int id, String name, String breed, int yearOfBirth,
       String arrivalDate, String medicalDetails, int crateNumber) {
     Dog dog =
         Dog(name, breed, yearOfBirth, arrivalDate, medicalDetails, crateNumber);
-    dogsRepository.updateDog(id, dog);
+    var result = dogsRepository.updateDog(id, dog);
     notifyListeners();
-  }
-
-  Future<Dog> returnDogById(int id) {
-    return dogsRepository.returnDogById(id);
+    return result;
   }
 }

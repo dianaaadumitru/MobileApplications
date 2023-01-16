@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../domain/Dog.dart';
 import '../service/DogService.dart';
+import 'homePage.dart';
 
 class DogDetails extends StatefulWidget {
   final Dog dog;
@@ -144,7 +145,7 @@ class _DogDetailsState extends State<DogDetails> {
                     return;
                   }
 
-                  Provider.of<DogService>(context, listen: false).updateDog(
+                  var result = Provider.of<DogService>(context, listen: false).updateDog(
                       widget.dog.id,
                       dogName.text,
                       dogBreed.text,
@@ -153,7 +154,32 @@ class _DogDetailsState extends State<DogDetails> {
                       medicalDetails,
                       int.tryParse(dogCrateNo.text)!);
 
-                  Navigator.pop(context);
+                  result.then((value) => {
+                    if (value == "SUCCESS") {
+                      Navigator.pop(context)
+                    } else {
+                      showDialog(context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Error"),
+                              content: const Text("You are offline or there is a problem, please try again later."),
+                              actions: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute<void>(builder: (context) {
+                                        return const HomePage();
+                                      }));
+                                    },
+                                    child: const Text("OK")
+                                )
+                              ],
+                            );
+                          }
+                      )
+                    }
+                  });
+
                 },
               ),
             ),
