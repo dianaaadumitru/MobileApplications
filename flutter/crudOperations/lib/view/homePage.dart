@@ -85,8 +85,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildListView() {
-    var dogsFuture =
-        Provider.of<DogService>(context, listen: true).getAllDogs();
+    var dogsFuture = Provider.of<DogService>(context, listen: true).getAllDogs();
 
     return FutureBuilder<List<Dog>>(
         future: dogsFuture,
