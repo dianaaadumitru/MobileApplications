@@ -38,4 +38,9 @@ public class DogController {
         dogService.removeDog(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/isOnline")
+    public ResponseEntity<Boolean> isOnline() {
+        return ResponseEntity.ok(true);
+    }
 }

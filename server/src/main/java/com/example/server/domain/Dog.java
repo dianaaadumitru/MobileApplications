@@ -14,7 +14,7 @@ import lombok.*;
 @Setter
 public class Dog {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String name;

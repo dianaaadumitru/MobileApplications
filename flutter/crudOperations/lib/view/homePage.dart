@@ -58,7 +58,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildListView() {
-    var dogsFuture = Provider.of<DogService>(context, listen: true).getAllDogs();
+    var dogsFuture =
+        Provider.of<DogService>(context, listen: true).getAllDogs();
 
     return FutureBuilder<List<Dog>>(
         future: dogsFuture,
@@ -74,33 +75,36 @@ class _HomePageState extends State<HomePage> {
                 }
 
                 return ListTile(
-                  leading: CircleAvatar(
-                    child: Text('${index + 1}'),
-                  ),
-                  title: Text(
-                    dog.name,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 19.0,
-                        fontWeight: FontWeight.normal),
-
-                  ),
-                  subtitle: Text(
-                    "${dog.breed}, ${dog.arrivalDate}",
-                  ),
-                  trailing:  Column(
-                    children: [
-                      FloatingActionButton(
-                        onPressed: () {
-                          var wasCancelled =
-                          showAreYouSureDialog(dog.id);
-                        },
-                        backgroundColor: Colors.blue,
-                        child: const Icon(Icons.delete),
-                      ),
-                    ],
-                  ),
-                );
+                    leading: CircleAvatar(
+                      child: Text('${index + 1}'),
+                    ),
+                    title: Text(
+                      dog.name,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 19.0,
+                          fontWeight: FontWeight.normal),
+                    ),
+                    subtitle: Text(
+                      "${dog.breed}, ${dog.arrivalDate}",
+                    ),
+                    trailing: Column(
+                      children: [
+                        FloatingActionButton(
+                          onPressed: () {
+                            var wasCancelled = showAreYouSureDialog(dog.id);
+                          },
+                          backgroundColor: Colors.blue,
+                          child: const Icon(Icons.delete),
+                        ),
+                      ],
+                    ),
+                    onTap: () => {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute<void>(builder: (context) {
+                            return DogDetails(dog);
+                          }))
+                        });
               });
         });
   }
