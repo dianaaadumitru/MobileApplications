@@ -16,7 +16,7 @@ class ServerRepository {
   late List<Dog> dogsLocal;
   bool _isOnline;
 
-  static const String ipAddress = '192.168.1.4';
+  static const String ipAddress = '172.30.115.183';
 
   static const String idColumn = "id";
   static const String nameColumn = "name";
@@ -76,7 +76,7 @@ class ServerRepository {
                 'crateNumber': newDog.crateNumber
               }),
               encoding: Encoding.getByName('utf-8'))
-          .timeout(const Duration(seconds: 1));
+          .timeout(const Duration(seconds: 2));
 
       if (response.statusCode == 200) {
         log('log: Added dog ${newDog.name}');
@@ -84,18 +84,19 @@ class ServerRepository {
     } on TimeoutException {
       _isOnline = false;
       dogsLocal.add(newDog);
-      return addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth,
+      addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth,
           newDog.arrivalDate, newDog.medicalDetails, newDog.crateNumber);
     } on Error {
       _isOnline = false;
       dogsLocal.add(newDog);
-      return addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth,
+      addDogLocally(newDog.name, newDog.breed, newDog.yearOfBirth,
           newDog.arrivalDate, newDog.medicalDetails, newDog.crateNumber);
     }
   }
 
   Future<List<Dog>> getAllDogs() async {
     await checkOnline();
+    log("isOnline: $_isOnline");
 
     if (!_isOnline) {
       return getAllDogsLocally();
@@ -104,7 +105,7 @@ class ServerRepository {
     try {
       var response = await http
           .get(Uri.parse("http://$ipAddress:8080/dogs"))
-          .timeout(const Duration(seconds: 1));
+          .timeout(const Duration(seconds: 2));
       if (response.statusCode == 200) {
         var res = json.decode(response.body);
         var dogsJson = res as List;
@@ -129,7 +130,7 @@ class ServerRepository {
     try {
       var response = await http
           .delete(Uri.parse("http://$ipAddress:8080/dogs/$id"))
-          .timeout(const Duration(seconds: 1));
+          .timeout(const Duration(seconds: 2));
 
       if (response.statusCode == 200) {
         log('log: Removed dog with id $id');
@@ -166,7 +167,7 @@ class ServerRepository {
                 'crateNumber': dog.crateNumber
               }),
               encoding: Encoding.getByName('utf-8'))
-          .timeout(const Duration(seconds: 1));
+          .timeout(const Duration(seconds: 2));
 
       if (response.statusCode == 200) {
         log('log: Updated dog ${dog.name}');
