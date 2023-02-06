@@ -44,7 +44,7 @@ class _MainSection extends State<MainSection> {
                onPressed: () {
                  Navigator.of(context)
                      .push(MaterialPageRoute<void>(builder: (context) {
-                   return AddMoviePage();
+                   return const AddMoviePage();
                  }));
                },
                child: const Text("Add movie")

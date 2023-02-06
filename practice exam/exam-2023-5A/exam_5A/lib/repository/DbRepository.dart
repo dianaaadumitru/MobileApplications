@@ -150,4 +150,21 @@ class DbRepository extends ChangeNotifier {
     notifyListeners();
     return Pair("ok", _online);
   }
+
+  Future<Pair> deleteMovie(int id) async {
+    try {
+      var response = await http
+          .delete(Uri.parse("http://$ipAddress:$httpPort/movie/$id"))
+          .timeout(const Duration(seconds: 2));
+
+      if (response.statusCode == 200) {
+        log('log: Removed movie with id $id');
+      }
+    } on Exception {
+      _online = false;
+    }
+
+    notifyListeners();
+    return Pair("ok", _online);
+  }
 }

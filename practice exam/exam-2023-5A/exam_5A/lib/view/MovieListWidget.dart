@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:exam_5a/view/GenreMoviesPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../domain/Genre.dart';
 import '../repository/DbRepository.dart';
 import '../utils/Pair.dart';
+import 'MainSection.dart';
 
 class MoviesListWidget extends StatefulWidget{
   final String _genre;
@@ -19,11 +21,81 @@ class MoviesListWidget extends StatefulWidget{
 
 class _MovieListWidget extends State<MoviesListWidget> {
 
-  void showAlertDialog(BuildContext context, String message) {
+  // void showAlertDialog(BuildContext context, String message) {
+  //   // set up the button
+  //   Widget okButton = TextButton(
+  //     child: const Text("OK"),
+  //     onPressed: () {
+  //       Navigator.pop(context);
+  //     },
+  //   );
+  //
+  //   // set up the AlertDialog
+  //   AlertDialog alert = AlertDialog(
+  //     title: const Text("Error"),
+  //     content: Text(message),
+  //     actions: [
+  //       okButton,
+  //     ],
+  //   );
+  //
+  //   // show the dialog
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     },
+  //   );
+  // }
+
+  bool showAreYouSureDialog(int index) {
+    bool isCancelled = false;
+
     // set up the button
-    Widget okButton = TextButton(
-      child: const Text("OK"),
+    Widget yesButton = TextButton(
+      child: const Text("Yes"),
       onPressed: () {
+        var result =
+        Provider.of<DbRepository>(context, listen: false).deleteMovie(index);
+        result.then((value) => {
+          if (value.right is bool  && value.right)
+            {
+              Navigator.of(context)
+                  .push(MaterialPageRoute<void>(builder: (context) {
+                return const MainSection();
+              }))
+            }
+          else
+            {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Error"),
+                      content: const Text(
+                          "You are offline or there is a problem, please try again later."),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                  MaterialPageRoute<void>(
+                                      builder: (context) {
+                                        return const MainSection();
+                                      }));
+                            },
+                            child: const Text("OK"))
+                      ],
+                    );
+                  })
+            }
+        });
+      },
+    );
+
+    Widget cancelButton = TextButton(
+      child: const Text("Cancel"),
+      onPressed: () {
+        isCancelled = true;
         Navigator.pop(context);
       },
     );
@@ -31,9 +103,10 @@ class _MovieListWidget extends State<MoviesListWidget> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: const Text("Error"),
-      content: Text(message),
+      content: const Text('Are you sure you want to delete this movie?'),
       actions: [
-        okButton,
+        cancelButton,
+        yesButton,
       ],
     );
 
@@ -44,6 +117,8 @@ class _MovieListWidget extends State<MoviesListWidget> {
         return alert;
       },
     );
+
+    return isCancelled;
   }
 
   Widget _buildListView() {
@@ -137,6 +212,9 @@ class _MovieListWidget extends State<MoviesListWidget> {
                         )
                       ],
                     ),
+                    onTap: () => {
+                      showAreYouSureDialog(genre.id)
+                    },
                   ),
                 );
 

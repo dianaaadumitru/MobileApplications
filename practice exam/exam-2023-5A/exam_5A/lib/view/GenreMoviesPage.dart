@@ -1,3 +1,4 @@
+import 'package:exam_5a/view/MainSection.dart';
 import 'package:exam_5a/view/MovieListWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
