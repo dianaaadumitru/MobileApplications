@@ -1,6 +1,7 @@
 import 'package:exam_5a/repository/DbRepository.dart';
 import 'package:exam_5a/view/AddMoviePage.dart';
 import 'package:exam_5a/view/GenresListWidget.dart';
+import 'package:exam_5a/view/ReleaseYearPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,10 @@ class _MainSection extends State<MainSection> {
            const Spacer(),
            ElevatedButton(
                onPressed: () {
-
+                 Navigator.of(context)
+                     .push(MaterialPageRoute<void>(builder: (context) {
+                   return const ReleaseYearPage();
+                 }));
                },
                child: const Text("Release year section")
            ),

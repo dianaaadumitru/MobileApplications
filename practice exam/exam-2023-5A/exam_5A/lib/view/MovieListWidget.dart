@@ -1,26 +1,20 @@
-import 'dart:developer';
-
-import 'package:exam_5a/view/GenreMoviesPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../domain/Genre.dart';
 import '../repository/DbRepository.dart';
 import '../utils/Pair.dart';
 import 'MainSection.dart';
 
-class MoviesListWidget extends StatefulWidget{
+class MoviesListWidget extends StatefulWidget {
   final String _genre;
 
   const MoviesListWidget(this._genre, {super.key});
 
   @override
   State<StatefulWidget> createState() => _MovieListWidget();
-
 }
 
 class _MovieListWidget extends State<MoviesListWidget> {
-
   // void showAlertDialog(BuildContext context, String message) {
   //   // set up the button
   //   Widget okButton = TextButton(
@@ -55,40 +49,40 @@ class _MovieListWidget extends State<MoviesListWidget> {
     Widget yesButton = TextButton(
       child: const Text("Yes"),
       onPressed: () {
-        var result =
-        Provider.of<DbRepository>(context, listen: false).deleteMovie(index);
+        var result = Provider.of<DbRepository>(context, listen: false)
+            .deleteMovie(index);
         result.then((value) => {
-          if (value.right is bool  && value.right)
-            {
-              Navigator.of(context)
-                  .push(MaterialPageRoute<void>(builder: (context) {
-                return const MainSection();
-              }))
-            }
-          else
-            {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text("Error"),
-                      content: const Text(
-                          "You are offline or there is a problem, please try again later."),
-                      actions: [
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute<void>(
-                                      builder: (context) {
-                                        return const MainSection();
-                                      }));
-                            },
-                            child: const Text("OK"))
-                      ],
-                    );
-                  })
-            }
-        });
+              if (value.right is bool && value.right)
+                {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute<void>(builder: (context) {
+                    return const MainSection();
+                  }))
+                }
+              else
+                {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Error"),
+                          content: const Text(
+                              "You are offline or there is a problem, please try again later."),
+                          actions: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute<void>(
+                                          builder: (context) {
+                                    return const MainSection();
+                                  }));
+                                },
+                                child: const Text("OK"))
+                          ],
+                        );
+                      })
+                }
+            });
       },
     );
 
@@ -122,9 +116,10 @@ class _MovieListWidget extends State<MoviesListWidget> {
   }
 
   Widget _buildListView() {
-    var moviesFuture = Provider.of<DbRepository>(context, listen: true).getMoviesByGenre(widget._genre);
+    var moviesFuture = Provider.of<DbRepository>(context, listen: true)
+        .getMoviesByGenre(widget._genre);
     return FutureBuilder<Pair>(
-      future: moviesFuture,
+        future: moviesFuture,
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -212,28 +207,19 @@ class _MovieListWidget extends State<MoviesListWidget> {
                         )
                       ],
                     ),
-                    onTap: () => {
-                      showAreYouSureDialog(genre.id)
-                    },
+                    onTap: () => {showAreYouSureDialog(genre.id)},
                   ),
                 );
 
                 if (movies?.right == false && index == 0) {
                   return Card(
-                    child: Column(
-                        children: [
-                          const Text("Offline"),
-                          card
-                        ]
-                    ),
+                    child: Column(children: [const Text("Offline"), card]),
                   );
                 }
 
                 return card;
-              }
-          );
-        }
-    );
+              });
+        });
   }
 
   @override
@@ -246,9 +232,7 @@ class _MovieListWidget extends State<MoviesListWidget> {
         title: const Text('Alert'),
         content: SingleChildScrollView(
           child: ListBody(
-            children: <Widget>[
-              Text(infoMessage)
-            ],
+            children: <Widget>[Text(infoMessage)],
           ),
         ),
         actions: [
@@ -263,5 +247,4 @@ class _MovieListWidget extends State<MoviesListWidget> {
     }
     return _buildListView();
   }
-
 }
