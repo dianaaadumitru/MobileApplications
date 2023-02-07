@@ -1,7 +1,6 @@
-import 'dart:convert';
+
 
 class Movie {
-
   late int id;
   String name;
   String description;
@@ -35,7 +34,8 @@ class Movie {
   }
 
   factory Movie.fromJson(dynamic json) {
-    var movie = Movie(json['name'], json['description'], json['genre'], json['director'], json['year']);
+    var movie = Movie(json['name'], json['description'], json['genre'],
+        json['director'], json['year']);
     movie.id = json['id'];
 
     return movie;

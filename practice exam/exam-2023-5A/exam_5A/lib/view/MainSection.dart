@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class MainSection extends StatefulWidget {
   const MainSection({Key? key}) : super(key: key);
-  
+
   @override
   State<StatefulWidget> createState() => _MainSection();
 }
@@ -15,49 +15,46 @@ class MainSection extends StatefulWidget {
 class _MainSection extends State<MainSection> {
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
-     appBar: AppBar(
-       title: const Text("Main Section"),
-     ),
-     body: const GenresListWidget(),
-     floatingActionButton: Container(
-       alignment: Alignment.bottomCenter,
-       child: Row(
-         mainAxisAlignment: MainAxisAlignment.center,
-         children: [
-           const Spacer(),
-           const Spacer(),
-           ElevatedButton(
-               onPressed: () {
-                 Navigator.of(context)
-                     .push(MaterialPageRoute<void>(builder: (context) {
-                   return const ReleaseYearPage();
-                 }));
-               },
-               child: const Text("Release year section")
-           ),
-           const Spacer(),
-           ElevatedButton(
-               onPressed: () {
-                  Provider.of<DbRepository>(context, listen: false).checkOnline();
-               },
-               child: const Text("Refresh")
-           ),
-           const Spacer(),
-           ElevatedButton(
-               onPressed: () {
-                 Navigator.of(context)
-                     .push(MaterialPageRoute<void>(builder: (context) {
-                   return const AddMoviePage();
-                 }));
-               },
-               child: const Text("Add movie")
-           ),
-           const Spacer(),
-         ],
-       ),
-     ),
-   );
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Main Section"),
+      ),
+      body: const GenresListWidget(),
+      floatingActionButton: Container(
+        alignment: Alignment.bottomCenter,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Spacer(),
+            const Spacer(),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute<void>(builder: (context) {
+                    return const ReleaseYearPage();
+                  }));
+                },
+                child: const Text("Release year section")),
+            const Spacer(),
+            ElevatedButton(
+                onPressed: () {
+                  Provider.of<DbRepository>(context, listen: false)
+                      .checkOnline();
+                },
+                child: const Text("Refresh")),
+            const Spacer(),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute<void>(builder: (context) {
+                    return const AddMoviePage();
+                  }));
+                },
+                child: const Text("Add movie")),
+            const Spacer(),
+          ],
+        ),
+      ),
+    );
   }
-  
 }

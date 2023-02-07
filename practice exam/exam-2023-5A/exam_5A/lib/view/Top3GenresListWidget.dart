@@ -10,12 +10,12 @@ class Top3GenresListWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _Top3GenresListWidget();
-
 }
 
 class _Top3GenresListWidget extends State<Top3GenresListWidget> {
   Widget _buildListView() {
-    var entitiesFuture = Provider.of<DbRepository>(context, listen: true).getTop3GenresList();
+    var entitiesFuture =
+        Provider.of<DbRepository>(context, listen: true).getTop3GenresList();
 
     return FutureBuilder<Pair>(
         future: entitiesFuture,
@@ -92,31 +92,19 @@ class _Top3GenresListWidget extends State<Top3GenresListWidget> {
                         )
                       ],
                     ),
-
-                    onTap: () => {
-
-                    },
+                    onTap: () => {},
                   ),
                 );
 
                 if (entities?.right == false && index == 0) {
                   return Card(
-                    child: Column(
-                        children: [
-                          const Text("Offline"),
-                          card
-                        ]
-                    ),
+                    child: Column(children: [const Text("Offline"), card]),
                   );
                 }
 
                 return card;
-              }
-          );
-
-
-        }
-    );
+              });
+        });
   }
 
   @override
@@ -129,9 +117,7 @@ class _Top3GenresListWidget extends State<Top3GenresListWidget> {
         title: const Text('Alert'),
         content: SingleChildScrollView(
           child: ListBody(
-            children: <Widget>[
-              Text(infoMessage)
-            ],
+            children: <Widget>[Text(infoMessage)],
           ),
         ),
         actions: [
@@ -146,5 +132,4 @@ class _Top3GenresListWidget extends State<Top3GenresListWidget> {
     }
     return _buildListView();
   }
-
 }

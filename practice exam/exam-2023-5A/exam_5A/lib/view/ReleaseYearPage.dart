@@ -12,7 +12,6 @@ class ReleaseYearPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _ReleaseYearPage();
-
 }
 
 class _ReleaseYearPage extends State<ReleaseYearPage> {
@@ -37,15 +36,14 @@ class _ReleaseYearPage extends State<ReleaseYearPage> {
                     return const MainSection();
                   }));
                 },
-                child: const Text("Main Section")
-            ),
+                child: const Text("Main Section")),
             const Spacer(),
             ElevatedButton(
                 onPressed: () {
-                  Provider.of<DbRepository>(context, listen: false).checkOnline();
+                  Provider.of<DbRepository>(context, listen: false)
+                      .checkOnline();
                 },
-                child: const Text("Refresh")
-            ),
+                child: const Text("Refresh")),
             const Spacer(),
             ElevatedButton(
                 onPressed: () {
@@ -54,14 +52,11 @@ class _ReleaseYearPage extends State<ReleaseYearPage> {
                     return const Top3GenresPage();
                   }));
                 },
-                child: const Text("Top 3 genres")
-            ),
+                child: const Text("Top 3 genres")),
             const Spacer(),
           ],
         ),
       ),
-
     );
   }
-
 }

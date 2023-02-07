@@ -10,12 +10,12 @@ class ActiveYearsListWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _ActiveYearsListWidget();
-
 }
 
 class _ActiveYearsListWidget extends State<ActiveYearsListWidget> {
   Widget _buildListView() {
-    var entitiesFuture = Provider.of<DbRepository>(context, listen: true).getActiveYearsList();
+    var entitiesFuture =
+        Provider.of<DbRepository>(context, listen: true).getActiveYearsList();
 
     return FutureBuilder<Pair>(
         future: entitiesFuture,
@@ -92,31 +92,19 @@ class _ActiveYearsListWidget extends State<ActiveYearsListWidget> {
                         )
                       ],
                     ),
-
-                    onTap: () => {
-
-                    },
+                    onTap: () => {},
                   ),
                 );
 
                 if (entities?.right == false && index == 0) {
                   return Card(
-                    child: Column(
-                        children: [
-                          const Text("Offline"),
-                          card
-                        ]
-                    ),
+                    child: Column(children: [const Text("Offline"), card]),
                   );
                 }
 
                 return card;
-              }
-          );
-
-
-        }
-    );
+              });
+        });
   }
 
   @override
@@ -129,9 +117,7 @@ class _ActiveYearsListWidget extends State<ActiveYearsListWidget> {
         title: const Text('Alert'),
         content: SingleChildScrollView(
           child: ListBody(
-            children: <Widget>[
-              Text(infoMessage)
-            ],
+            children: <Widget>[Text(infoMessage)],
           ),
         ),
         actions: [
@@ -146,5 +132,4 @@ class _ActiveYearsListWidget extends State<ActiveYearsListWidget> {
     }
     return _buildListView();
   }
-
 }

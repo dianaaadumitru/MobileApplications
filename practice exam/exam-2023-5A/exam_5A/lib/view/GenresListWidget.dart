@@ -10,11 +10,9 @@ class GenresListWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _GenresListWidget();
-
 }
 
 class _GenresListWidget extends State<GenresListWidget> {
-
   void showAlertDialog(BuildContext context, String message) {
     // set up the button
     Widget okButton = TextButton(
@@ -43,7 +41,8 @@ class _GenresListWidget extends State<GenresListWidget> {
   }
 
   Widget _buildListView() {
-    var genresFuture = Provider.of<DbRepository>(context, listen: true).getAllGenres();
+    var genresFuture =
+        Provider.of<DbRepository>(context, listen: true).getAllGenres();
 
     return FutureBuilder<Pair>(
         future: genresFuture,
@@ -113,7 +112,6 @@ class _GenresListWidget extends State<GenresListWidget> {
                         )
                       ],
                     ),
-
                     onTap: () => {
                       Navigator.of(context)
                           .push(MaterialPageRoute<void>(builder: (context) {
@@ -125,20 +123,13 @@ class _GenresListWidget extends State<GenresListWidget> {
 
                 if (genres?.right == false && index == 0) {
                   return Card(
-                    child: Column(
-                        children: [
-                          const Text("Offline"),
-                          card
-                        ]
-                    ),
+                    child: Column(children: [const Text("Offline"), card]),
                   );
                 }
 
                 return card;
-              }
-          );
-        }
-    );
+              });
+        });
   }
 
   @override
@@ -151,9 +142,7 @@ class _GenresListWidget extends State<GenresListWidget> {
         title: const Text('Alert'),
         content: SingleChildScrollView(
           child: ListBody(
-            children: <Widget>[
-              Text(infoMessage)
-            ],
+            children: <Widget>[Text(infoMessage)],
           ),
         ),
         actions: [
@@ -168,5 +157,4 @@ class _GenresListWidget extends State<GenresListWidget> {
     }
     return _buildListView();
   }
-
 }

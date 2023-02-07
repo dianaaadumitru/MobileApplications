@@ -203,17 +203,19 @@ class DbRepository extends ChangeNotifier {
     var isOnline = pairRepoRes.right;
 
     final Map<int, int> yearToMoviesNo = {};
-    for(var i = 0; i < allMovies.length; ++i) {
+    for (var i = 0; i < allMovies.length; ++i) {
       yearToMoviesNo.update(
         allMovies[i].year,
-            (value) => ++value,
+        (value) => ++value,
         ifAbsent: () => 1,
       );
     }
 
     var years = yearToMoviesNo.keys.toList();
-    years.sort((y1, y2) => ((yearToMoviesNo[y1] ?? 0) < (yearToMoviesNo[y2] ?? 0)) ? 1 : 0);
-    var listRes = years.map((year) => Pair(year, yearToMoviesNo[year] ?? 0)).toList();
+    years.sort((y1, y2) =>
+        ((yearToMoviesNo[y1] ?? 0) < (yearToMoviesNo[y2] ?? 0)) ? 1 : 0);
+    var listRes =
+        years.map((year) => Pair(year, yearToMoviesNo[year] ?? 0)).toList();
 
     return Pair(listRes, isOnline);
   }
@@ -224,17 +226,19 @@ class DbRepository extends ChangeNotifier {
     var isOnline = pairRepoRes.right;
 
     final Map<String, int> genreToMoviesNo = {};
-    for(var i = 0; i < allMovies.length; ++i) {
+    for (var i = 0; i < allMovies.length; ++i) {
       genreToMoviesNo.update(
         allMovies[i].genre,
-            (value) => ++value,
+        (value) => ++value,
         ifAbsent: () => 1,
       );
     }
 
     var years = genreToMoviesNo.keys.toList();
-    years.sort((y1, y2) => ((genreToMoviesNo[y1] ?? 0) < (genreToMoviesNo[y2] ?? 0)) ? 1 : 0);
-    var listRes = years.map((year) => Pair(year, genreToMoviesNo[year] ?? 0)).toList();
+    years.sort((y1, y2) =>
+        ((genreToMoviesNo[y1] ?? 0) < (genreToMoviesNo[y2] ?? 0)) ? 1 : 0);
+    var listRes =
+        years.map((year) => Pair(year, genreToMoviesNo[year] ?? 0)).toList();
 
     return Pair(listRes.sublist(0, 3), isOnline);
   }
