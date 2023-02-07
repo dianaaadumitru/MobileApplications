@@ -27,6 +27,7 @@ class DbRepository extends ChangeNotifier {
   String _infoMessage = '';
 
   DbRepository(this._channel) {
+    log("info message: $_infoMessage");
     _channel.stream.listen((data) {
       _listenToServerHandler(data);
     });
@@ -41,6 +42,7 @@ class DbRepository extends ChangeNotifier {
   void _listenToServerHandler(dynamic data) {
     data = jsonDecode(data);
     _infoMessage = data.toString();
+    log("info message: $_infoMessage");
     notifyListeners();
   }
 

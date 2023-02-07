@@ -142,8 +142,7 @@ class _AddTipPage extends State<AddTipPage> {
                     if (result.right is bool && result.right) {
                       Navigator.pop(context);
                     } else {
-                      showAlertDialog(
-                          context, "Add is not possible while offline!");
+                      showAlertDialog(context, "Add is not possible while offline!");
                     }
                   },
                 ),
