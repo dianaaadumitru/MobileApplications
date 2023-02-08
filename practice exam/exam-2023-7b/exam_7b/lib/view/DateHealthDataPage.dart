@@ -1,3 +1,4 @@
+import 'package:exam_7b/view/MainSection.dart';
 import 'package:exam_7b/view/widgets/HealthDataListWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,15 @@ class _DateHealthDataPage extends State<DateHealthDataPage> {
                       .checkOnline();
                 },
                 child: const Text("Refresh")),
+            const Spacer(),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute<void>(builder: (context) {
+                    return const MainSection();
+                  }));
+                },
+                child: const Text("Main Section")),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:exam_7b/view/DeleteHealthDataPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,123 +17,6 @@ class HealthDataListWidget extends StatefulWidget {
 }
 
 class _HealthDataListWidget extends State<HealthDataListWidget> {
-  bool isLoading = false;
-
-  void showAreYouSureDialog(int index) {
-    // set up the button
-    Widget yesButton = TextButton(
-      child: const Text("Yes"),
-      onPressed: () async {
-        setState(() {
-          isLoading = true;
-        });
-
-        var result = await Provider.of<DbRepository>(context, listen: false).deleteHealthData(index);
-
-        setState(() {
-          isLoading = false;
-        });
-
-        if (!mounted) {
-          return;
-        }
-
-        if (result.left is String && result.left != "ok") {
-          final snackBar =
-          SnackBar(content: Text(result.left as String));
-
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          return;
-        }
-
-        if (result.right is bool && result.right) {
-          Navigator.of(context)
-              .push(MaterialPageRoute<void>(builder: (context) {
-            return const MainSection();
-          }));
-        } else {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text("Error"),
-                  content: const Text(
-                      "You are offline, please try again later."),
-                  actions: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute<void>(
-                                  builder: (context) {
-                                    return const MainSection();
-                                  }));
-                        },
-                        child: const Text("OK"))
-                  ],
-                );
-              });
-        }
-
-        // result.then((value) => {
-        //   if (value.right is bool && value.right)
-        //     {
-        //       Navigator.of(context)
-        //           .push(MaterialPageRoute<void>(builder: (context) {
-        //         return const MainSection();
-        //       }))
-        //     }
-        //   else
-        //     {
-        //       showDialog(
-        //           context: context,
-        //           builder: (BuildContext context) {
-        //             return AlertDialog(
-        //               title: const Text("Error"),
-        //               content: const Text(
-        //                   "You are offline or there is a problem, please try again later."),
-        //               actions: [
-        //                 ElevatedButton(
-        //                     onPressed: () {
-        //                       Navigator.of(context).push(
-        //                           MaterialPageRoute<void>(
-        //                               builder: (context) {
-        //                                 return const MainSection();
-        //                               }));
-        //                     },
-        //                     child: const Text("OK"))
-        //               ],
-        //             );
-        //           })
-        //     }
-        // });
-      },
-    );
-
-    Widget cancelButton = TextButton(
-      child: const Text("Cancel"),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: const Text("Alert"),
-      content: const Text('Are you sure you want to delete this entity?'),
-      actions: [
-        cancelButton,
-        yesButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
 
   Widget _buildListView() {
     var entitiesFuture = Provider.of<DbRepository>(context, listen: true)
@@ -246,7 +130,10 @@ class _HealthDataListWidget extends State<HealthDataListWidget> {
                       ],
                     ),
                     onTap: () => {
-                      showAreYouSureDialog(entity.id)
+                    Navigator.of(context)
+                        .push(MaterialPageRoute<void>(builder: (context) {
+                    return DeleteHealthDataPage(entity);
+                    }))
                     },
                   ),
                 );
