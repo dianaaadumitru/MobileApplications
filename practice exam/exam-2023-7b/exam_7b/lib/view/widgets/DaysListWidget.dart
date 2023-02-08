@@ -64,7 +64,7 @@ class _DaysListWidget extends State<DaysListWidget> {
           }
 
           var entities = snapshot.data;
-          if (entities?.left?.left.length == 0) {
+          if (entities?.left?.left.length == 0 && !entities?.right) {
             return Card(
               shape: RoundedRectangleBorder(
                 side: BorderSide(
@@ -73,6 +73,18 @@ class _DaysListWidget extends State<DaysListWidget> {
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: const Text("offline"),
+            );
+          }
+
+          if (entities?.left?.left.length == 0 && entities?.right) {
+            return Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: Colors.blue.shade300,
+                ),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: const Text("No elements in the list"),
             );
           }
 
@@ -86,7 +98,7 @@ class _DaysListWidget extends State<DaysListWidget> {
                   return const Card();
                 } else if (entity == null && index == 0) {
                   return const Card(
-                    child: Text("offline"),
+                    child: Text("No elements in the list"),
                   );
                 } else if (entity == null) {
                   return const Card();

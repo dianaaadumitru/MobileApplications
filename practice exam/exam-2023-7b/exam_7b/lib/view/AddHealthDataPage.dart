@@ -12,7 +12,7 @@ class AddHealthDataPage extends StatefulWidget {
 }
 
 class _AddHealthDataPage extends State<AddHealthDataPage> {
-  bool isAddLoading = true;
+  bool isAddLoading = false;
 
   void showAlertDialog(BuildContext context, String message) {
     // set up the button
@@ -53,7 +53,7 @@ class _AddHealthDataPage extends State<AddHealthDataPage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("Add tip"),
+          title: const Text("Add health data"),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -95,14 +95,14 @@ class _AddHealthDataPage extends State<AddHealthDataPage> {
                 ),
               ),
               Center(
-                child: ElevatedButton(
+                child: !isAddLoading ? ElevatedButton(
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width / 2,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Text("Add tip"),
+                        Text("Add health data"),
                       ],
                     ),
                   ),
@@ -114,6 +114,7 @@ class _AddHealthDataPage extends State<AddHealthDataPage> {
                     if (symptomController.text == "" ||
                         dateController.text == "") {
                       showAlertDialog(context, "invalid data!");
+                      isAddLoading = false;
                       return;
                     }
 
@@ -145,7 +146,7 @@ class _AddHealthDataPage extends State<AddHealthDataPage> {
                       showAlertDialog(context, "Add is not possible while offline!");
                     }
                   },
-                ),
+                ) : const Center(child:CircularProgressIndicator()),
               )
             ],
           ),

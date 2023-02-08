@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,62 +16,109 @@ class HealthDataListWidget extends StatefulWidget {
 }
 
 class _HealthDataListWidget extends State<HealthDataListWidget> {
-  bool showAreYouSureDialog(int index) {
-    bool isCancelled = false;
+  bool isLoading = false;
 
+  void showAreYouSureDialog(int index) {
     // set up the button
     Widget yesButton = TextButton(
       child: const Text("Yes"),
-      onPressed: () {
-        var result =
-        Provider.of<DbRepository>(context, listen: false).deleteHealthData(index);
-        result.then((value) => {
-          if (value.right is bool && value.right)
-            {
-              Navigator.of(context)
-                  .push(MaterialPageRoute<void>(builder: (context) {
-                return const MainSection();
-              }))
-            }
-          else
-            {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text("Error"),
-                      content: const Text(
-                          "You are offline or there is a problem, please try again later."),
-                      actions: [
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute<void>(
-                                      builder: (context) {
-                                        return const MainSection();
-                                      }));
-                            },
-                            child: const Text("OK"))
-                      ],
-                    );
-                  })
-            }
+      onPressed: () async {
+        setState(() {
+          isLoading = true;
         });
+
+        var result = await Provider.of<DbRepository>(context, listen: false).deleteHealthData(index);
+
+        setState(() {
+          isLoading = false;
+        });
+
+        if (!mounted) {
+          return;
+        }
+
+        if (result.left is String && result.left != "ok") {
+          final snackBar =
+          SnackBar(content: Text(result.left as String));
+
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          return;
+        }
+
+        if (result.right is bool && result.right) {
+          Navigator.of(context)
+              .push(MaterialPageRoute<void>(builder: (context) {
+            return const MainSection();
+          }));
+        } else {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text("Error"),
+                  content: const Text(
+                      "You are offline, please try again later."),
+                  actions: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                  builder: (context) {
+                                    return const MainSection();
+                                  }));
+                        },
+                        child: const Text("OK"))
+                  ],
+                );
+              });
+        }
+
+        // result.then((value) => {
+        //   if (value.right is bool && value.right)
+        //     {
+        //       Navigator.of(context)
+        //           .push(MaterialPageRoute<void>(builder: (context) {
+        //         return const MainSection();
+        //       }))
+        //     }
+        //   else
+        //     {
+        //       showDialog(
+        //           context: context,
+        //           builder: (BuildContext context) {
+        //             return AlertDialog(
+        //               title: const Text("Error"),
+        //               content: const Text(
+        //                   "You are offline or there is a problem, please try again later."),
+        //               actions: [
+        //                 ElevatedButton(
+        //                     onPressed: () {
+        //                       Navigator.of(context).push(
+        //                           MaterialPageRoute<void>(
+        //                               builder: (context) {
+        //                                 return const MainSection();
+        //                               }));
+        //                     },
+        //                     child: const Text("OK"))
+        //               ],
+        //             );
+        //           })
+        //     }
+        // });
       },
     );
 
     Widget cancelButton = TextButton(
       child: const Text("Cancel"),
       onPressed: () {
-        isCancelled = true;
         Navigator.pop(context);
       },
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: const Text("Error"),
-      content: const Text('Are you sure you want to delete this entry?'),
+      title: const Text("Alert"),
+      content: const Text('Are you sure you want to delete this entity?'),
       actions: [
         cancelButton,
         yesButton,
@@ -86,8 +132,6 @@ class _HealthDataListWidget extends State<HealthDataListWidget> {
         return alert;
       },
     );
-
-    return isCancelled;
   }
 
   Widget _buildListView() {
@@ -113,7 +157,7 @@ class _HealthDataListWidget extends State<HealthDataListWidget> {
           }
 
           var entities = snapshot.data;
-          if (entities?.left?.left.length == 0) {
+          if (entities?.left?.left.length == 0 && !entities?.right) {
             return Card(
               shape: RoundedRectangleBorder(
                 side: BorderSide(
@@ -122,6 +166,18 @@ class _HealthDataListWidget extends State<HealthDataListWidget> {
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: const Text("offline"),
+            );
+          }
+
+          if (entities?.left?.left.length == 0 && entities?.right) {
+            return Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: Colors.blue.shade300,
+                ),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: const Text("No elements in the list"),
             );
           }
 
@@ -135,7 +191,7 @@ class _HealthDataListWidget extends State<HealthDataListWidget> {
                   return const Card();
                 } else if (entity == null && index == 0) {
                   return const Card(
-                    child: Text("offline"),
+                    child: Text("No elements in the list"),
                   );
                 } else if (entity == null) {
                   return const Card();

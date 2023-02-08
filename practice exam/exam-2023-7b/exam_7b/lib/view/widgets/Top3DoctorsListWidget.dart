@@ -38,7 +38,7 @@ class _Top3DoctorsListWidget extends State<Top3DoctorsListWidget> {
           }
 
           var entities = snapshot.data;
-          if (entities?.left.length == 0) {
+          if (entities?.left?.length == 0 && !entities?.right) {
             return Card(
               shape: RoundedRectangleBorder(
                 side: BorderSide(
@@ -47,6 +47,18 @@ class _Top3DoctorsListWidget extends State<Top3DoctorsListWidget> {
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: const Text("offline"),
+            );
+          }
+
+          if (entities?.left?.length == 0 && entities?.right) {
+            return Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: Colors.blue.shade300,
+                ),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: const Text("No elements in the list"),
             );
           }
 

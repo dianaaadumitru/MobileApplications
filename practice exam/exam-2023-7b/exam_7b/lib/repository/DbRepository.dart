@@ -254,6 +254,10 @@ class DbRepository extends ChangeNotifier {
 
     log("top 3 doctors");
 
+    if (listRes.length < 3) {
+      return Pair(listRes, isOnline);
+    }
+
     return Pair(listRes.sublist(0, 3), isOnline);
   }
 }
